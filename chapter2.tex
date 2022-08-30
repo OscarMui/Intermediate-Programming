@@ -1,0 +1,357 @@
+\chapter{C++ Knowledge}
+
+Here are some basic knowledge I expect you to know. In case you don't, here is a brief summary.
+
+\section{Further resources: Bucky's C++ Tutorial}
+\href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{Bucky's C++ Programming Tutorial}\footnote{Link: \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{https://www.youtube.com/watch?v=tvC1WCdV1XU\&list=PLAE85DE8440AA6B83}} (a YouTube playlist) covers most things that you need to know about C++, and also most of the things in this chapter. You only need to watch the first 20-30 videos, as it goes too deep in the later episodes.
+
+\section{Practicing at home}
+Practicing is very important, rerun code that you don't understand from the notes (for example, I would remove the one or two lines that you don't understand and see how they affect the result) and implement algorithms that you find interesting. 
+
+The two IDEs I recommend are Code::Blocks and Visual Studio Code. Either one would work.
+
+\subsection*{Code::Blocks}
+
+It is simplier to use, suitable for beginners. \href{https://www.codeblocks.org/}{Click here for the official website.}\footnote{Link: \href{https://www.codeblocks.org/}{https://www.codeblocks.org/}}
+
+The first video of \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{Bucky's C++ Programming Tutorial}\footnote{Link: \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{https://www.youtube.com/watch?v=tvC1WCdV1XU\&list=PLAE85DE8440AA6B83}} covers how to use it in detail.
+
+\subsection*{VS Code}
+
+Suitable for students who have experience using the command line. It is a light weight text editor and works well with other languages. \href{https://code.visualstudio.com/}{Click here for the official website.}\footnote{Link: \href{https://code.visualstudio.com/}{https://code.visualstudio.com/}}
+
+You will have to compile and run the C++ program in command line using the following commands (make sure you installed the \href{https://gcc.gnu.org/}{GNG GCC complier})\footnote{Link: \href{https://gcc.gnu.org/}{https://gcc.gnu.org/}}.
+\vspace{6mm}
+
+\texttt{g++ -o <executable> <source code>}
+
+\texttt{./<executable>}
+\vspace{6mm}
+
+For example,
+
+\texttt{g++ -o test test.cpp}
+
+\texttt{./test}
+
+
+\section{Structure of a C++ program}
+\begin{lstlisting}
+//First include the libraries that you are going to use
+#include <iostream> 
+
+//A weird line of code that you have to remember every time you write a C++ program.
+using namespace std;
+
+int main(){
+    cout << "Hello world" << endl;
+    return 0;
+}
+\end{lstlisting}
+
+The main function is the point of entry of the program, the program terminates when the main program returns, returning 0 indicates that there is no error, returning other integers indicate otherwise.
+
+You need to add a semicolon at the end of every statement or else the compiler will shout at you. 
+
+\section{Comparison with C}
+
+At first sight C and C++ programs look very different.
+
+For example, when you print the same thing above using C, you will do:
+
+\begin{lstlisting}
+//C
+#include <stdio.h> 
+int main(){
+    printf("Hello world\n");
+}
+\end{lstlisting}
+
+But you can also do:
+
+\begin{lstlisting}
+//C++
+#include <cstdio>
+using namespace std;
+int main(){
+    printf("Hello world\n");
+}
+\end{lstlisting}
+
+So the lesson learnt is \textbf{you can use all functionality in C program in C++}, as C++ is a superset of C. You can include all C libraries by prepending the name with a 'c', and removing the \texttt{.h}. For instance, \texttt{cmath}, \texttt{ctime}.
+\vspace{6mm}
+
+It is wise to use both. \texttt{printf} is more superior than \texttt{cout} when you want to print some floating point value with a certain number of decimal places. (using \texttt{printf("\%.2f",num);})
+
+While it is easier to get input from a whole line using \texttt{cin.getline(<string variable>,<max number of characters>)}.
+
+\section{Conditionals}
+\subsection{\texttt{if} statements}
+
+\begin{lstlisting}
+int score;
+cin >> score;
+if(score >= 70){
+    printf("Good job.\n");
+}else if(score >= 40){
+    printf("You got a pass.\n");
+}else{
+    printf("You failed.\n");
+}
+\end{lstlisting}
+
+\subsection{\texttt{switch case}}
+
+Just looks neater when you are testing with the same variable multiple times. You can of course use if else if else if... 
+
+Note that it only works for int and char, and only equality tests are allowed. For example, the above example on scores could not be replaced using switch case.
+
+Also note that the \textbf{\texttt{break}} keyword is necessary to quit the switch statement, or else it will run the default clause regardless.
+
+\begin{lstlisting}
+char x;
+cin >> x;
+switch(x){
+    case 'z':
+        cout << "It is the last letter of the alphabet." << endl;
+        break;
+    //this is how you do multiple equality tests
+    case 'a':
+    case 'e':
+    case 'i':
+    case 'o':
+    case 'u':
+        cout << "It is a vowel." << endl;
+        break;
+    //equivalent to the else clause
+    default:
+        cout << "It is not a vowel." << endl;
+        break;
+}
+\end{lstlisting}
+
+\section{Arrays}
+Arrays store a list of data of the same type.
+
+Note that indices starts with 0.
+
+\begin{lstlisting}
+int x[8] = {3,1,4,1,5,9,2,6};
+//alternatively: int x[] = {3,1,4,1,5,9,2,6}; length of array can be omitted as it can be derived from the right hand side
+
+cout << x[0] << endl; //3 
+cout << x[4] << endl; //5
+cout << x[7] << endl; //6 (last element)
+cout << x[8] << endl; //unexpected value (Why?)
+\end{lstlisting}
+
+\section{Loops}
+\subsection{\texttt{for} loops}
+Runs the loop for a specified number of times.
+
+\begin{lstlisting}
+int x[8] = {3,1,4,1,5,9,2,6};
+int sum = 0;
+for(int i = 0; i < 8; i++) { //loops i=0,1,2,3,4,5,6,7
+    sum += x[i];
+}
+cout << sum << endl; //31
+\end{lstlisting}
+
+\begin{lstlisting}
+int x[8] = {3,1,4,1,5,9,2,6};
+int sum = 0;
+for(int i = 7; i >= 0; i--) { //loops i=7,6,5,4,3,2,1,0
+    sum += x[i];
+}
+cout << sum << endl; //31
+\end{lstlisting}
+
+\subsection{\texttt{while} loops}
+Runs the loop until the test is false.
+\begin{lstlisting}
+int x[8] = {3,1,4,1,5,9,2,6};
+int sum = 0;
+int i = 0;
+while(i<8) { 
+    sum += x[i]; //loops i=0,1,2,3,4,5,6,7
+    i++;
+}
+cout << sum << endl; //31
+\end{lstlisting}
+
+\begin{lstlisting}
+int x[8] = {3,1,4,1,5,9,2,6};
+int sum = 0;
+int i = 0;
+while(i<8&&sum<10) { 
+    sum += x[i];
+    i++;
+}
+cout << sum << endl; //14
+\end{lstlisting}
+
+\subsection{\texttt{do while} loops}
+Runs the loop until the test is false. The body will run at least once.
+
+\begin{lstlisting}
+bool emergency = false;
+do{
+    printf("EMERGENCY\n"); //will be printed
+}while(emergency);
+\end{lstlisting}
+
+\begin{lstlisting}
+bool emergency = false;
+while(emergency){
+    printf("EMERGENCY\n"); //will not be printed
+}
+\end{lstlisting}
+
+It yields the same result with while loops when the condition allows the loop to run at least once.
+
+\begin{lstlisting}
+int x[8] = {3,1,4,1,5,9,2,6};
+int sum = 0;
+int i = 0;
+do { 
+    sum += x[i]; //loops i=0,1,2,3,4,5,6,7
+    i++;
+}while(i<8);
+cout << sum << endl; //31
+\end{lstlisting}
+
+\subsection{Infinite loops}
+
+If the test case is always true, the loop enters an infinite loop. In this example, EMERGENCY will be printed forever nonstop.
+
+\begin{lstlisting}
+bool emergency = true;
+while(emergency){
+    printf("EMERGENCY\n");
+}
+\end{lstlisting}
+\vspace{6mm}
+
+\subsection{\texttt{break}}
+
+\texttt{break} allows you to terminate the loop immediately.
+
+\begin{lstlisting}
+int x[8] = {3,1,4,1,5,9,2,6};
+int sum = 0;
+int i = 0;
+while(i<8) { 
+    sum += x[i];
+    i++;
+    if(sum >= 10) break;
+}
+cout << sum << endl; //14
+\end{lstlisting}
+
+\subsection{\texttt{continue}}
+
+\texttt{continue} allows you to jump to the next iteration, skipping the rest of the current iteration immediately.
+
+\begin{lstlisting}
+int x[8] = {3,1,4,1,5,9,2,6};
+int sum = 0;
+int i = 8;
+while(i>0) {
+    i--;
+    if(x[i] >= 5) continue;
+    sum += x[i];
+}
+cout << sum << endl; //11
+\end{lstlisting}
+
+\subsection{Equivalence}
+
+Note that all for loops and do while loops can be written as a while loop.
+
+\begin{lstlisting}[basicstyle=rmfamily]
+for(int i = 0; i < <target>; i++) <body> === 
+int i = 0; while(i < <target>) <body> i++;
+\end{lstlisting}
+
+\begin{lstlisting}[basicstyle=rmfamily]
+do <body> while(<test>); === <body> while(<test>) <body>
+\end{lstlisting}
+
+Also note that use of \texttt{break} and \texttt{continue} can be avoided by modifying the loop condition and using if statements respectively. 
+
+In fact, plenty of other programming languages do not have \texttt{break} and \texttt{continue}, and a few only got for loops. 
+
+\section{2D arrays}
+
+Don't have time to cover, there should be plenty of resources online on this topic.
+
+\begin{lstlisting}
+int x[3][] = {{1,4,7},{2,5,8},{3,6,9}};
+cout << x[2][1] << endl; //6
+\end{lstlisting}
+
+\subsection{Nested loops}
+
+\begin{lstlisting}
+int x[3][] = {{1,4,7},{2,5,8},{3,6,9}};
+sum = 0;
+for(int i=0;i<3;i++)
+    for(int j=0;j<3;j++)
+        sum += x[i][j];
+cout << sum << endl; //45
+\end{lstlisting}
+
+\section{Functions}
+
+Functions let you organize code better and reduce repeated code. You can define them by:
+
+\begin{lstlisting}[language=,basicstyle=rmfamily]
+<return type> function(<arguments>){
+    return <return value>;
+}
+\end{lstlisting}
+
+For example, this fact function accepts an integer x, and returns another integer.
+
+\begin{lstlisting}
+int fact(int x){
+    int y = 1;
+    for(int i = 1; i <= x; i++){
+        y *= i;
+    }
+    return y;
+}
+//What would happen if we input a negative number?
+\end{lstlisting}
+
+You could call it by just supplying the argument.
+
+\begin{lstlisting}
+    cout << fact(6) << endl; //720
+\end{lstlisting}
+
+You could use the \texttt{\textbf{void}} keyword to indicate a function without a return value. If there is no explicit \texttt{return;} statement, the function will automatically quit at the end. (only applicable to \texttt{void} functions.
+
+\begin{lstlisting}
+void giveComment(int score){
+    if(score >= 70){
+        printf("Good job.\n");
+    }else if(score >= 40){
+        printf("You got a pass.\n");
+    }else{
+        printf("You failed.\n");
+    }
+}
+
+int main(){
+    int s;
+    cin >> s;
+    giveComment(s);
+}
+\end{lstlisting}
+
+The main function is just a function with no arguments and an integer as a return value. The main function (specially recognized by the compiler) is the point of entry of the program, the program terminates when the main program returns, returning 0 indicates that there is no error, returning other integers indicate otherwise.
+\vspace{6mm}
+
+Note that the giveComment function must be placed in front of the main function, or else the main function could not call the giveComment function as the function has not been defined by the time the complier reads till the main function. 

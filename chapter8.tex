@@ -1,0 +1,318 @@
+\chapter{Sorting Algorithms}
+
+In this chapter we will look at some algorithms that sort an array of integers of length \textit{n} in ascending order. We will look at how they work and analyze their efficiency (using time complexity). We will only focus on implementation using arrays.
+
+To demonstrate different sorting algorithms, we would use this code right here as a template:
+
+\begin{lstlisting}
+#include <iostream>
+using namespace std;
+int main(){
+    int x[] = {3,1,4,1,5,9,2,6};
+    
+    //the sorting function accepts the array and the length of the array, this is common practice, as it is impossible to determine the length of the array in C/C++ when only the array is given.
+    sort(x,8);
+
+    //print everything in x, with commas properly placed
+    //check if the answer is 1,1,2,3,4,5,6,9
+    cout << x[0];
+    for(int i = 1; i < 8;  i++){
+        cout << "," << x[i];
+    }
+    cout << endl;
+}
+\end{lstlisting}
+\pagebreak
+\section{Bubble sort}
+
+Bubble sort swaps the places of two adjacent integers when it realizes they are out of order, until they are all sorted.
+
+\includegraphics[width=16cm]{ch8-bubblesort.png}
+
+\pagebreak
+
+% Pseudocode:
+% \begin{lstlisting}[language=Python,basicstyle=\rmfamily]
+% bsort(x,n):
+%     while(not sorted):
+%         for j from 0 to n-1:
+%             if x[j] > x[j+1]:
+%                 swap(x[j],x[j+1]
+% \end{lstlisting}
+
+\pagebreak
+
+At the \textit{i}th iteration of the outer loop, the last \textit{i} elements of the array is put at their location. To garantee the array is sorted, the inner loop is run \textit{n} times.
+\vspace{6mm}
+
+C++: (\textit{Exercise: Try to re-implement yourself.})
+\begin{lstlisting}
+void bsort(int x[], int n){
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n-i-1; j++){ //the last i elements are sorted
+            if(x[j]>x[j+1]){
+                int temp = x[j];
+                x[j] = x[j+1];
+                x[j+1] = temp;
+            }
+        } 
+    }
+}
+\end{lstlisting}
+
+Time complexity: $O(n^2)$ comparisons
+\vspace{6mm}
+
+There are \textit{n} steps, each step involves checking and swapping data from start to finish, taking time proportional to \textit{n}.
+
+\pagebreak
+
+\section{Selection sort}
+
+Selection sort selects the minimum element and put it in front of the sorted array. Repeats until all elements are extracted.
+
+\includegraphics[width=16cm]{ch8-selectionsort.png}
+
+\pagebreak
+
+% Pseudocode:
+% \begin{lstlisting}[language=Python,basicstyle=\rmfamily]
+% ssort(x,n):
+%     y = []
+%     for each element in array x:
+%         i = select-minimum(x) //get index of minimum element in x
+%         y.append(x[i]) //add this element to the back of the newly created array
+%         x.remove(i) //remove that minimum element from consideration
+%     return y
+% \end{lstlisting}
+
+\pagebreak
+
+In practice, we will not use two separate arrays, we can just use one and put our sorted array \textit{y} in front of \textit{x}.
+\vspace{6mm}
+
+C++: (\textit{Exercise: Try to re-implement yourself.})
+\begin{lstlisting}
+void ssort(int x[], int n){
+    for(int i=0; i<n; i++){
+        int minValue = x[i]; //Can we put 0 here instead?
+        int minIndex = i;
+        for(int j=i; j<n; j++){
+            if(minValue > x[j]){
+                minValue = x[j];
+                minIndex = j;
+            }
+        }
+        //swap x[i] with x[minIndex]
+        //this first line is not needed (int temp = x[minIndex]);, because we have obtained minValue earlier
+        x[minIndex] = x[i];
+        x[i] = minValue;        
+    }
+}
+\end{lstlisting}
+
+Time complexity: $O(n^2)$ comparisons
+\vspace{6mm}
+
+There are \textit{n} steps, each step involves finding the minimum value, taking time proportional to \textit{n}.
+
+\pagebreak
+
+\section{Insertion sort}
+
+Insertion sort assumes the leftmost element is a sorted array, then slowly adds elements in one by one, preserving the order of the sorted array.
+
+\includegraphics[width=15cm]{ch8-insertionsort.png}
+
+
+% Pseudocode:
+% \begin{lstlisting}[language=Python,basicstyle=\rmfamily]
+% isort(x,n):
+%     for i from 1 to n:
+%         insert(x,i,x[i])
+
+% insert(x,i,v):
+%     j = i-1
+%     while(j>0 and x[j] > v){
+%         x[j+1] = x[j]
+%         i--
+%     }
+%     x[j] = v
+% \end{lstlisting}
+% \vspace{6mm}
+
+C++: (\textit{Exercise: Try to re-implement yourself.})
+\begin{lstlisting}
+void isort(int x[], int n){
+    for(int i=1; i<n; i++){
+        int j = i-1;
+        while(j>=0&&x[j] > x[j+1]){
+            int temp = x[j];
+            x[j] = x[j+1];
+            x[j+1] = temp;
+            j--;
+        }
+    }
+}
+\end{lstlisting}
+
+Time complexity: $O(n^2)$ comparisons
+\vspace{6mm}
+
+There are \textit{n} steps, each step involves finding correct location to insert the value concerned, taking time proportional to \textit{n}.
+
+\pagebreak
+
+\section{Merge sort}
+
+Merge sort first splits the array repeatedly until all arrays are of length 1, where they are sorted without any actions. Then it merges back them two by two in order, eventually we get back the whole array in sorted order.
+
+\includegraphics[width=15cm]{ch8-mergesort.png}
+
+\pagebreak
+
+% Pseudocode:
+% \begin{lstlisting}[language=Haskell,basicstyle=\rmfamily]
+% msort(x) = merge(msort(l),msort(r))
+%     where l = first half of x, r = second half of x
+% msort({}) = {}
+% msort({a}) = {a} 
+
+% merge(a,b)
+%     | null a: b
+%     | null b: a
+%     | head a <= head b : [head a] ++ merge(tail a, b)
+%     | else: [head b] ++ merge(a, tail b)
+% \end{lstlisting}
+% \vspace{6mm}
+
+C++: (\textit{Exercise: Try to re-implement yourself.})
+
+Call by \texttt{msort(x,0,8);}
+
+\begin{lstlisting}
+void merge(int x[], int a, int m, int b){
+    //segment a: x[a..m)
+    //segment b: x[m..b)
+
+    //create array c that stores the result of the merge 
+    int c[b-a];
+
+    //store pointers of a,b,c to indicate the progress of the merge
+    int ai = 0;
+    int bi = 0; 
+    int ci = 0;
+    
+    //perform the merge
+    while(ai < m-a && bi < b-m){
+        if(x[ai+a]<=x[bi+m]){
+            c[ci] = x[ai+a];
+            ci++;
+            ai++;
+        }else{
+            c[ci] = x[bi+m];
+            ci++;
+            bi++;
+        }
+    }
+
+    //one of the segments have completely used up, copy the remaining elements to the end of c
+    while(ai < m-a){
+        c[ci] = x[ai+a];
+        ci++;
+        ai++;
+    }
+    while(bi < b-m){
+        c[ci] = x[bi+m];
+        ci++;
+        bi++;
+    }
+
+    //overwrite the data of the original segment with data in c
+    for(int i=0;i<b-a;i++){
+        x[i+a] = c[i];
+    }
+}
+
+void msort(int x[], int start, int end){
+    if(start+1>=end) return; //base case: the array is empty or with only 1 element
+    int mid = (start+end)/2;
+    msort(x,start,mid); //msort first half [start..mid)
+    msort(x,mid,end); //msort second half [mid..end)
+    merge(x,start,mid,end);
+}
+\end{lstlisting}
+
+Time complexity: $O(n\log n)$ comparisons
+\vspace{6mm}
+
+There are $\log n$ steps, each step involves function \textit{merge}, taking time proportional to \textit{n}.
+
+\subsection*{A sprinkle of magic (OUT OF SCOPE)}
+
+Wow, you managed to make it to the end! I know this piece of notes is probably too much for some of you, but as an Oxford Computer Science student myself, I just have to give you something more to see. Well, you see the merge sort code took more than a page, but it can be much shorter in other programming language, like Haskell. 
+
+Here is the Haskell implementation:
+
+\begin{lstlisting}[language=Haskell]
+msort [] = []
+msort [x] = [x]
+msort xs = merge (msort ls) (msort rs)
+    where (ls,rs) = halve xs
+
+merge [] ys = ys
+merge xs [] = xs
+merge (x:xs) (y:ys) = if x <= y then x:merge xs (y:ys) else y:merge (x:xs) ys
+    
+
+halve xs = (take m xs, drop m xs)
+    where m = (length xs) `div` 2
+
+\end{lstlisting}
+
+It looks a lot different and Haskell's different properties made the code so much neater.
+
+\section{Quicksort}
+
+Don't have time to cover, there should be plenty of resources online on this topic.
+
+\section{Counting sort}
+
+Don't have time to cover, there should be plenty of resources online on this topic.
+
+\section{Conclusion}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|m{6em}|m{9em}|m{18em}|}
+        \hline  
+        \textbf{Sorting Algorithms} & 
+        \multicolumn{2}{l|}{Goal: Sort elements in an array in ascending order}
+        \\ \hline \hline
+        
+        Algorithm &
+        Time Complexity & 
+        Remarks
+        \\ \hline \hline
+        
+        \makecell[lb]{Bubble sort \\ Selection sort \\ Insertion sort} &
+        $O(n^2)$ &
+        Only used on short arrays because of their poor time complexity (seldom the case for programming competitions)
+        \\ \hline
+        
+        \makecell[lb]{Merge sort \\ Quicksort} &
+        $O(n\log n)$ &
+        Good enough time complexity, without significant disadvantages. Hence they are used most often.
+        \\ \hline
+        
+        Counting sort &
+        $O(n)$ &
+        Significant disadvantages, limited usage despite its fast time complexity, seldomly used. \tablefootnote{Know more about counting sort: \href{https://www.interviewcake.com/concept/java/counting-sort}{https://www.interviewcake.com/concept/java/counting-sort}}
+        \\ \hline
+    \end{tabular}
+\end{table}
+
+Merge sort and quicksort both have a time complexity of $O(n\log n)$, without significant disadvantages. Hence they are used most often. 
+\vspace{6mm}
+
+I hope you enjoyed the burst in knowledge, and if you are one of the contestants in the coming HKOI or other programming competitions, I also wish you all the best.

@@ -1,10 +1,10 @@
 \chapter{Searching Algorithms}
 
-In this chapter we will look at some algorithms that search for a specific integer in an array, and return the index of it. We will look at how they work and analyze their efficiency (using time complexity). We will only focus on implementation using arrays.
+In this chapter we will look into some algorithms that search for a specific integer in an array, and return its index in the array. We will look at how they work and analyze their efficiency (using time complexity). We will only focus on implementation using arrays.
 
 \section{Further resources}
 
-Watching animations of these algorithms are useful in understanding how they work. Algorithms in this and the next chapter are all very famous, I am sure you can find plenty of them online.
+Watching animations of these algorithms is useful in understanding how they work. Algorithms in this and the next chapter are all very famous, I am sure you can find plenty of them online.
 
 \section{Linear search}
 
@@ -20,7 +20,7 @@ int main(){
 }
 \end{lstlisting}
 
-It might not be completely clear whether the target is in the array, but we could easily check by:
+It might not be completely clear whether the target is in the array or not, but have to check by:
 
 \begin{lstlisting}
 int i = linearSearch(x,8,target);
@@ -61,7 +61,7 @@ The worst case occurs when the target is not found or the target is the last ele
 
 \section{Binary search}
 
-In fact, we can be a bit faster. Yet this requires the array to be \textbf{sorted} beforehand.
+In fact, we can do better. Yet this requires the array to be \textbf{sorted} beforehand.
 
 Every time we can cut the array in half, and compare the target with the middle element (x[m]). Let's say the segment that the target might be in is x[i..j) (including i and excluding j). We try to maintain that structure that the right hand index is always excluded, and the left hand index is always included, to avoid complications of code.
 \vspace{6mm}
@@ -123,9 +123,9 @@ int main(){
 
 How about duplicate targets in the array? To maintain consistency, we should return the location of the leftmost occurrence of the target. 
 
-How about targets that are not found in the array? We should return the location that the target can be inserted to maintain the order of the array. 
+How about targets that are not found in the array? We should return the location where the target can be inserted to maintain the order of the array. 
 
-To achieve these goals, we have to change our concept slightly. (In fact these changes lead to neater code)
+To achieve these goals, we have to change our concept slightly. (Surprisingly these changes lead to neater code)
 
 We will imagine that we split the array into three sections, x[0..i) contains all elements that are checked $<$ target, x[i..j) contains all elements that are not checked yet, and x[j..n) contains all elements that are checked $>=$ target. 
 
@@ -136,7 +136,7 @@ Which value shall we return? If the value is present, x[0..i) contains all eleme
 
 If the target is present, it will be at location i. If there are duplicates, the leftmost occurrence will be at location i. If the target is not present. The proper location to insert it is also location i. So i should be returned regardless. Neat!
 
-Followed are some illustrations that further elaborates the concept, and also the implementation in C++.
+Followed are some illustrations that further elaborate on the concept, and also the implementation in C++.
 \vspace{6mm}
 
 \includegraphics[width=12.5cm]{images/ch7-binarysearch71.png}

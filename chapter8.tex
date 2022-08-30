@@ -27,7 +27,7 @@ int main(){
 
 Bubble sort swaps the places of two adjacent integers when it realizes they are out of order, until they are all sorted.
 
-\includegraphics[width=16cm]{ch8-bubblesort.png}
+\includegraphics[width=15cm]{ch8-bubblesort.png}
 
 \pagebreak
 
@@ -42,7 +42,7 @@ Bubble sort swaps the places of two adjacent integers when it realizes they are 
 
 \pagebreak
 
-At the \textit{i}th iteration of the outer loop, the last \textit{i} elements of the array is put at their location. To garantee the array is sorted, the inner loop is run \textit{n} times.
+At the \textit{i}th iteration of the outer loop, the last \textit{i} elements of the array are put at their location. To guarantee the array is sorted, the inner loop is run \textit{n} times.
 \vspace{6mm}
 
 C++: (\textit{Exercise: Try to re-implement yourself.})
@@ -159,7 +159,7 @@ void isort(int x[], int n){
 Time complexity: $O(n^2)$ comparisons
 \vspace{6mm}
 
-There are \textit{n} steps, each step involves finding correct location to insert the value concerned, taking time proportional to \textit{n}.
+There are \textit{n} steps, each step involves finding the correct location to insert the value concerned, taking time proportional to \textit{n}.
 
 \pagebreak
 
@@ -250,7 +250,7 @@ There are $\log n$ steps, each step involves function \textit{merge}, taking tim
 
 \subsection*{A sprinkle of magic (OUT OF SCOPE)}
 
-Wow, you managed to make it to the end! I know this piece of notes is probably too much for some of you, but as an Oxford Computer Science student myself, I just have to give you something more to see. Well, you see the merge sort code took more than a page, but it can be much shorter in other programming language, like Haskell. 
+I know this piece of notes is probably too much for some of you, but as a Computer Science fanatic, I just have to give you something more to see. Well, you see the merge sort code took more than a page, but it can be much shorter in another programming language, Haskell. 
 
 Here is the Haskell implementation:
 
@@ -270,7 +270,7 @@ halve xs = (take m xs, drop m xs)
 
 \end{lstlisting}
 
-It looks a lot different and Haskell's different properties made the code so much neater.
+It looks a lot different and different properties in Haskell made the code so much neater.
 
 \section{Quicksort}
 

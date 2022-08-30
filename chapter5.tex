@@ -16,13 +16,13 @@ cout << x[7] << endl; //6 (last element)
 cout << x[8] << endl; //unexpected value 
 \end{lstlisting}
 
-The reason for x[8] to return unexpected value rather than an error is pretty interesting. To understand that, you will need to know how arrays are stored, and how array elements are accessed. 
+The reason for x[8] to return an unexpected value rather than an error is pretty interesting. To understand that, you will need to know how arrays are stored, and how array elements are accessed. 
 
 A \textbf{continuous} memory is allocated for each array. As indicated in the figure.
 
 \includegraphics[width=13cm]{ch5-array.png}
 
-C++ stores the base address of the array x, say at location 2240. Then to obtain x[k], it will calculate the address that it needs to retrieve by 2240 + k*4, the *4 is there because each integer occupies 4 bytes of memory, the multiplier is different depends on different datatypes. 
+C++ stores the base address of the array x, say at location 2240. Then to obtain x[k], it will calculate the address that it needs to retrieve by 2240 + k*4, the *4 is there because each integer occupies 4 bytes of memory, the multiplier is different depending on different datatypes. 
 
 For example, when querying x[4], we obtained it from address 2240+16 = 2256. 
 
@@ -60,5 +60,5 @@ Scattered blocks of memory are allocated for the linked list. Each block of memo
 \section{Conclusion}
 As you can see, linked lists and arrays have different efficiencies when performing different operations. There is no 'better' data structure, it is the job of we computer scientists to figure out which data structure should be used. Both linked lists and arrays can be used to implement stacks and queues and the algorithms that I will mention. 
 
-Yet I do not advise you to code using linked lists in C++, because it is quite troublesome without automatic garbage collecting and with an inconvenient object oriented programming infrastructure. It is best done using other languages like Java, Scala, or Python.
+Yet I do not advise you to code using linked lists in C++, because it is quite troublesome without automatic garbage collecting and with an inconvenient object-oriented programming infrastructure. It is best done using other languages like Java, Scala, or Python.
 

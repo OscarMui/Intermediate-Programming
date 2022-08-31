@@ -83,7 +83,7 @@ These are variants of integers. They are of less importance.\footnote{Reference:
     \end{tabular}
 \end{table}
 
-\section{Integer overflow}
+\section{Integer \index{overflow}}
 
 As you saw in the last section, integers have a limited range. Overflow occurs when the value we want to store is out of the range that the data type can represent. 
 
@@ -228,7 +228,7 @@ char s1[7] = { 'A', 'B', 'C', '\0', 'D', 'E', '\0'};
 cout << s1 << endl; //ABC
 \end{lstlisting}
 
-\includegraphics[width=16cm]{ch3-nullstring.png}
+\includegraphics[width=3cm]{ch3-beyondnull.png}
 
 The first example shows what happens when we explicitly remove the null character at the end of the string. (By replacing \texttt{FGH\textbackslash 0} with \text{FGHI}) It attempts to access and print things beyond the memory allocated. (see chapter 5 for more details)
 
@@ -334,7 +334,6 @@ char s5[20] = "ABC", s6[20] = "ABC", s7[20] = "DEF";
 cout << (s5==s5) << endl; //1
 cout << (s5==s6) << endl; //0
 cout << (s5<s6) << endl; //0
-}
 \end{lstlisting}
 
 \subsection*{The whole string variable cannot be reassigned}
@@ -346,7 +345,7 @@ char s8[20] = "ABCD";
 s8 = "XYZ"; //SYNTAX ERROR
 \end{lstlisting}
 
-Well you could do this if you are desperate, but there is a better way in the next section. (strcpy)
+Well you could do the following instead if you are desperate, but there is a better way in the next section. (strcpy)
 
 \begin{lstlisting}
 s8[0] = 'X'; 
@@ -366,19 +365,19 @@ s8[3] = '\0';
         Usage 
         \\ \hline \hline
         
-        \texttt{strlen(s);} &
+        \texttt{strlen(s)} &
         Get string length
         \\ \hline
         
-        \texttt{strcpy(s1, s2);} &
+        \texttt{strcpy(s1, s2)} &
         Copy value stored in \texttt{s2} to \texttt{s1} 
         \\ \hline
         
-        \texttt{strcat(s1, s2);} &
+        \texttt{strcat(s1, s2)} &
         Concatenate (i.e. combine) the two strings, store it in \texttt{s1} 
         \\ \hline
         
-        \texttt{strcmp(s1, s2);} &
+        \texttt{strcmp(s1, s2)} &
         Compare two strings, returns 0 if \texttt{s1} = \texttt{s2}, returns a negative number if \texttt{s1} $<$ \texttt{s2}, returns a positive number if \texttt{s1} $>$ \texttt{s2}. (In dictionary order with respect to ASCII code)
         \\ \hline
     \end{tabular}

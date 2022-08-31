@@ -22,7 +22,7 @@ A \textbf{continuous} memory is allocated for each array. As indicated in the fi
 
 \includegraphics[width=13cm]{ch5-array.png}
 
-C++ stores the base address of the array x, say at location 2240. Then to obtain x[k], it will calculate the address that it needs to retrieve by 2240 + k*4, the *4 is there because each integer occupies 4 bytes of memory, the multiplier is different depending on different datatypes. 
+C++ stores the \textbf{\index{base address}} of the array x, say at location 2240. Then to obtain x[k], it will calculate the address that it needs to retrieve by 2240 + k*4, the *4 is there because each integer occupies 4 bytes of memory, the multiplier is different depending on different data types. 
 
 For example, when querying x[4], we obtained it from address 2240+16 = 2256. 
 
@@ -37,9 +37,145 @@ Let's say, next time it ended up at base address 8084, then it will obtain x[8] 
 
 Don't have time to cover, there should be plenty of resources online on this topic, including mycodeschool's playlist on pointers.
 
-\section{Call by reference and call by value}
+\section{Pointers and arrays}
 
-Testing testing
+Although we did not cover pointers in depth, it is important to understand the usage of pointers in manipulating arrays. 
+
+First, we need to understand that there are two ways values are passed by a function call, that is, \index{call by reference} and \index{call by value}, you will need to distinguish when each type is used.
+
+\subsection{Call by value}
+
+Primary data types (those you saw in section 3.1, e.g. \texttt{int},\texttt{char},\texttt{float}) are normally called by value, which means that their value is copied when they are passed into another function. Changes made to the variable inside the function will not affect its value in the caller. It is better to demonstrate through an example.
+
+\begin{lstlisting}
+void change(int a){ //pass by value
+    a += 1;
+    cout << "In change: " << a << endl; //In change: 6
+    return;
+}
+int main(){
+    int a = 5;
+    change(a);
+    cout << "In main: " << a << endl; //In main: 5
+}
+\end{lstlisting}
+
+As you can see, although a is changed to 6 in the change function, it is still 5 in the main function. 
+
+If you would like to actually change the value of a, you can adopt the call by reference strategy in the next section using pointers. (explained more in the next section, but I will write an example here first)\footnote{Not recommended, this strategy is specific to C/C++, it is impossible/ harder to do so in other programming languages like Java and Scala. It is also difficult to get your mind around the concept}
+
+\begin{lstlisting}
+void change2(int* p){ //pass by reference
+    *p += 1;
+    cout << "In change: " << *p << endl; //In change: 6
+    return;
+}
+int main(){
+    int a = 5;
+    int* p = &a;
+    change2(p);
+    cout << "In main: " << a << endl; //In main: 6
+}
+\end{lstlisting}
+
+Or an easier method in my opinion is to return the new value of a in the function change, so that the main function can update its value accordingly. Like this:
+
+\begin{lstlisting}
+//return the new value of a
+int change3(int a){ //pass by reference
+    a += 1;
+    cout << "In change: " << a << endl; //In change: 6
+    return;
+}
+int main(){
+    int a = 5;
+    a = chang3(a);
+    cout << "In main: " << a << endl; //In main: 6
+}
+\end{lstlisting}
+
+By doing so the nasty pointers are avoided.
+
+\subsection{Call by reference}
+
+Arrays (e.g. arrays of floats, strings) are normally called by reference, which means only the reference to the array variable (in the case of an array, it would be the base address) is copied when they are passed into another function, their value is NOT copied. It is a reasonable decision, as arrays could be very large. (imagine an array with 10000 elements) Changes made to the variable inside the function will then affect its value in the caller, because there is only a single copy of the array variable.
+
+\begin{lstlisting}
+void change(int x[]){ //pass by reference
+    x[2] += 1;
+    //print everything in x, with commas properly placed
+    //In change: 3,1,5,1,5,9,2,6
+    cout << "In change: " << x[0];
+    for(int i = 1; i < 8;  i++){
+        cout << "," << x[i];
+    }
+    cout << endl;
+    return;
+}
+int main(){
+    int x[] = {3,1,4,1,5,9,2,6};
+    change(x);
+    //In main: 3,1,5,1,5,9,2,6
+    cout << "In main: " << x[0];
+    for(int i = 1; i < 8;  i++){
+        cout << "," << x[i];
+    }
+    cout << endl;
+    return 0;
+}
+\end{lstlisting}
+
+Primary data types can be passed by reference by passing the pointer to that variable instead of the variable instead. As demonstrated by an example in the above section. However, it is impossible to pass arrays by value. The only way you could do it is by copying the array before passing it to another function, which we will demonstrate right now.
+
+\subsection{Making copies of arrays}
+
+First of all, you have to make a realization that arrays can't be copied normally like primary data types.
+
+\begin{lstlisting}
+int x[] = {3,1,4,1,5,9,2,6};
+int y[] = x; //SYNTAX ERROR
+\end{lstlisting}
+
+However, you can set y to be of type \texttt{int *}, a pointer to an integer, and it would work. This is because under the hood, the array variable only stores the base address, the address to the index 0 element of the array, as demonstrated in previous sections, that means, the array variable is actually just a pointer to whatever data type it stores! 
+
+In the example below, when x is 'copied' to y, the array is not copied, but just the reference. Both x and y are pointing to the same array, hence changes to x affects y, and vice versa. 
+
+\begin{lstlisting}
+int x[] = {3,1,4,1,5,9,2,6};
+int* y = x; //no error
+
+y[2] = 5;
+//In x: 3,1,5,1,5,9,2,6 
+cout << "In x: " << x[0];
+for(int i = 1; i < 8;  i++){
+    cout << "," << x[i];
+}
+cout << endl;
+\end{lstlisting}
+
+If you really want to make a copy of the array, there are no smarter ways to do so than a for loop.
+
+\begin{lstlisting}
+int x[] = {3,1,4,1,5,9,2,6};
+int y[8];
+for(int i=0;i<8;i++){
+    y[i] = x[i];
+}
+//try alter y to see if x is altered
+y[2] = 5;
+//In x: 3,1,4,1,5,9,2,6
+cout << "In x: " << x[0];
+for(int i = 1; i < 8;  i++){
+    cout << "," << x[i];
+}
+cout << endl;
+//In y: 3,1,5,1,5,9,2,6
+cout << "In y: " << y[0];
+for(int i = 1; i < 8;  i++){
+    cout << "," << y[i];
+}
+cout << endl;
+\end{lstlisting}
 
 \section{Linked lists}
 
@@ -47,7 +183,7 @@ Scattered blocks of memory are allocated for the linked list. Each block of memo
 
 \includegraphics[width=15cm]{ch5-linkedlist1}
 
-\section{Contrasting linked lists and arrays}
+\subsection{Contrasting linked lists and arrays}
 
 \includegraphics[width=15cm]{ch5-linkedlist2}
 
@@ -55,10 +191,18 @@ Scattered blocks of memory are allocated for the linked list. Each block of memo
 
 \section{Time complexity}
 
+You may noticed the weird symbols in green in the above table. This is what we call the \textbf{\index{big-O notation}}. It is used to describe time complexity, that is how work scales as the problem scales in size (usually in terms of size of the array/ linked list).\footnote{There is a very rigorous mathematical definition to the big-O notation, but it is not required in understanding what it is.}
 
+Some processes above have a time complexity of $O(1)$, that means the same amount of work is required no matter how long the array/linked list is. This is fantastic news! 
+
+While some other processes have a time complexity of $O(n)$, that means we have to do more work as the array/linked list lengthens, this is still manageable. 
+
+Some other processes you will encounter in the next few chapters have a time complexity of $O(n^2)$, this is bad news, because the amount of work would quickly go out of hand as n grows.
+
+You will also encounter $\log$ in the big-O notation. Don't be afraid, it is good news, because $\log n$ scales slower than n. When we describe big-O notation the log base can be ignored.
 
 \section{Conclusion}
 As you can see, linked lists and arrays have different efficiencies when performing different operations. There is no 'better' data structure, it is the job of we computer scientists to figure out which data structure should be used. Both linked lists and arrays can be used to implement stacks and queues and the algorithms that I will mention. 
 
-Yet I do not advise you to code using linked lists in C++, because it is quite troublesome without automatic garbage collecting and with an inconvenient object-oriented programming infrastructure. It is best done using other languages like Java, Scala, or Python.
+Yet I do not advise you to code using linked lists in C++, in fact I will not do so in this piece of notes, because it is quite troublesome without automatic garbage collecting and with an inconvenient object-oriented programming infrastructure. It is best done using other languages like Java, Scala, or Python.
 

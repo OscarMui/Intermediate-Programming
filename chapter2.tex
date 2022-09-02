@@ -2,25 +2,27 @@
 
 Here are some basic C++ knowledge, I bet you have seen some of the concepts in this chapter already on other occasions.
 
-\section{Further resources: Bucky's C++ Tutorial}
+\section{Further resources (Ch 2-3)}
 \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{Bucky's C++ Programming Tutorial}\footnote{Link: \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{https://www.youtube.com/watch?v=tvC1WCdV1XU\&list=PLAE85DE8440AA6B83}} (a YouTube playlist) covers most things that you need to know about C++, and also most of the things in this chapter. You only need to watch the first 20-30 videos, as it goes too deep in the later episodes.
 
 \section{Practicing at home}
-Practicing is very important, rerun code that you don't understand from the notes (for example, I would remove the one or two lines that you don't understand and see how they affect the result) and implement algorithms that you find interesting. 
+Practicing is very important. For example, one of the things I would do back then is to remove the one or two lines that I didn't understand in the materials, and see how they affected the program by printing out the values of the variables at different times. 
 
-The two IDEs I recommend are Code::Blocks and Visual Studio Code. Either one would work.
+The two IDEs\footnote{Integrated Development Environment, in short a text editor with tools to make programming easier} I recommend are Code::Blocks and Visual Studio Code. Either one would work.
 
 \subsection*{Code::Blocks}
 
-It is simpler to use, suitable for beginners. \href{https://www.codeblocks.org/}{Click here for the official website.}\footnote{Link: \href{https://www.codeblocks.org/}{https://www.codeblocks.org/}}
+It is simpler to use, suitable for beginners, but can only be used to write C/C++ code. \href{https://www.codeblocks.org/}{Click here for the official website.}\footnote{Link: \href{https://www.codeblocks.org/}{https://www.codeblocks.org/}}
 
 The first video of \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{Bucky's C++ Programming Tutorial}\footnote{Link: \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{https://www.youtube.com/watch?v=tvC1WCdV1XU\&list=PLAE85DE8440AA6B83}} covers how to use it in detail.
 
 \subsection*{VS Code}
 
-Suitable for students who have experience using the command line. It is a lightweight text editor and works well with other languages. \href{https://code.visualstudio.com/}{Click here for the official website.}\footnote{Link: \href{https://code.visualstudio.com/}{https://code.visualstudio.com/}}
+Suitable for students who have experience in using the command line. It is lightweight and works well with other languages. \href{https://code.visualstudio.com/}{Click here for the official website.}\footnote{Link: \href{https://code.visualstudio.com/}{https://code.visualstudio.com/}}
 
-You will have to compile and run the C++ program in the command line using the following commands (make sure you installed the \href{https://gcc.gnu.org/}{GNG GCC compiler})\footnote{Link: \href{https://gcc.gnu.org/}{https://gcc.gnu.org/}}.
+You will have to compile and run the C++ program in the command line (make sure you installed the \href{https://gcc.gnu.org/}{GNG GCC compiler})\footnote{Link: \href{https://gcc.gnu.org/}{https://gcc.gnu.org/}}.
+
+The commands needed for Git Bash (for Windows users) and the MacOS Terminal are as follows: (may be different for other tools)
 \vspace{6mm}
 
 \texttt{g++ -o <executable> <source code>}
@@ -49,7 +51,7 @@ int main(){
 }
 \end{lstlisting}
 
-The main function is the point of entry of the program, the program terminates when the main program returns, returning 0 indicates that there is no error, and returning other integers indicate otherwise.
+The main function is the point of entry of the program.
 
 You need to add a semicolon at the end of every statement or else the compiler will shout at you. 
 
@@ -67,7 +69,7 @@ int main(){
 }
 \end{lstlisting}
 
-But you can also do:
+To our surprise, we can also do:
 
 \begin{lstlisting}
 //C++
@@ -78,12 +80,14 @@ int main(){
 }
 \end{lstlisting}
 
-For those of you who have learnt C before, your effort is not wasted, \textbf{you can use all functionality in C program in C++}, as C++ is a superset of C. You can include all C libraries by prepending the name with a 'c', and removing the \texttt{.h}. For instance, \texttt{cmath}, \texttt{ctime}.
+For those of you who have learnt C before, I have a good news for you, that your effort is not wasted, as \textbf{you can use all functionality in C program in C++}\footnote{Out of scope: Well, C++ is not exactly a superset of C because there are a small amount of things that can be done by C but not C++, but those things are not a concern at all for students like us}. You can include all C libraries by prepending the name with a 'c', and removing the \texttt{.h}. For instance, \texttt{cmath} and \texttt{ctime}.
 \vspace{6mm}
 
-It is wise to use both. \texttt{printf} is more superior than \texttt{cout} when you want to print some floating point values with a certain number of decimal places. (using \texttt{printf("\%.2f",num);})
+It is wise to learn both \texttt{cstdio} and \texttt{iostream}, and to use the appropriate one on suitable occasions.
 
-While it is easier to get input from a whole line using \texttt{cin.getline(<string variable>,<max number of characters>)} (more in chapter 3).
+\texttt{printf} is more superior than \texttt{cout} when you want to print some floating point values with a certain number of decimal places. (using \texttt{printf("\%.2f",num);})
+
+While it is easier to get input from a whole line using \texttt{cin.getline} (more in chapter 3).
 
 \section{Conditionals}
 \subsection{\texttt{if} statements}
@@ -102,11 +106,11 @@ if(score >= 70){
 
 \subsection{\texttt{switch case}}
 
-Just looks neater when you are testing with the same variable multiple times. You can of course use if else if else if... 
+Just looks neater when you are testing on the same variable multiple times. You can of course use if else if else if... 
 
 Note that it only works for int and char, and only equality tests are allowed. For example, the above example on scores could not be replaced using switch case.
 
-Also note that the \textbf{\texttt{break}} keyword is necessary to quit the switch statement, or else it will run the default clause regardless.
+Also note that the \textbf{\texttt{break}} keyword is necessary to quit the switch statement, or else it will run the default clause after the \texttt{case} clause.
 
 \begin{lstlisting}
 char x;
@@ -137,7 +141,7 @@ Note that indices start with 0.
 
 \begin{lstlisting}
 int x[8] = {3,1,4,1,5,9,2,6};
-//alternatively: int x[] = {3,1,4,1,5,9,2,6}; length of array can be omitted as it can be derived from the right hand side
+//alternatively: int x[] = {3,1,4,1,5,9,2,6}; length of array can be omitted as the compiler can derive it from the right hand side
 
 cout << x[0] << endl; //3 
 cout << x[4] << endl; //5
@@ -208,7 +212,7 @@ while(emergency){
 }
 \end{lstlisting}
 
-It yields the same result with while loops when the test allows the loop to run at least once.
+This example yields the same result with while loops because the test is true initially, allowing the loop to run at least once.
 
 \begin{lstlisting}
 int x[8] = {3,1,4,1,5,9,2,6};
@@ -223,13 +227,14 @@ cout << sum << endl; //31
 
 \subsection{Infinite loops}
 
-If the test case is always true, the loop enters an infinite loop. In this example, EMERGENCY will be printed forever nonstop.
+If the test case is always true (there is nothing in the loop to make the test false). The loop is an \index{infinite loop}, where the loop will not terminate (until resources are used up), and the remaining parts of the program can never be run. In this example, EMERGENCY will be printed forever nonstop.
 
 \begin{lstlisting}
 bool emergency = true;
 while(emergency){
     printf("EMERGENCY\n");
 }
+destroy_world(); //will not be run
 \end{lstlisting}
 \vspace{6mm}
 
@@ -265,22 +270,22 @@ while(i>0) {
 cout << sum << endl; //11
 \end{lstlisting}
 
-\subsection{Equivalence}
+\subsection{Necessity of \texttt{break} and \texttt{continue}}
 
-Note that all for loops and do while loops can be written as a while loop.
+% Note that all for loops and do while loops can be written as a while loop.
 
-\begin{lstlisting}[basicstyle=rmfamily]
-for(int i = 0; i < <target>; i++) <body> === 
-int i = 0; while(i < <target>) <body> i++;
-\end{lstlisting}
+% \begin{lstlisting}[basicstyle=\rmfamily]
+% for(int i = 0; i < <target>; i++) <body> === 
+% int i = 0; while(i < <target>) <body> i++;
+% \end{lstlisting}
 
-\begin{lstlisting}[basicstyle=rmfamily]
-do <body> while(<test>); === <body> while(<test>) <body>
-\end{lstlisting}
+% \begin{lstlisting}[basicstyle=\rmfamily]
+% do <body> while(<test>); === <body> while(<test>) <body>
+% \end{lstlisting}
 
-Also, note that the use of \texttt{break} and \texttt{continue} can be avoided by modifying the loop condition and using if statements respectively. 
+Note that the use of \texttt{break} and \texttt{continue} can be avoided by modifying the loop condition and using if statements respectively. 
 
-In fact, plenty of other programming languages do not have \texttt{break}, \texttt{continue} and \texttt{do while} loops. 
+In fact, plenty of other programming languages do not have \texttt{break} and \texttt{continue}. 
 
 \section{2D arrays}
 
@@ -304,7 +309,7 @@ cout << sum << endl; //45
 
 \section{Functions}
 
-Functions let you organize code better and reduce repeated code. You can define them by:
+Functions let you organize code better and reduce the amount of repeated code. You can define them by:
 
 \begin{lstlisting}[language=,basicstyle=rmfamily]
 <return type> function(<arguments>){
@@ -331,7 +336,7 @@ You could call it by just supplying the argument.
     cout << fact(6) << endl; //720
 \end{lstlisting}
 
-You could use the \texttt{\textbf{void}} keyword to indicate a function without a return value. If there is no explicit \texttt{return;} statement, the function will automatically quit at the end of the function. (only applicable to \texttt{void} functions.
+You could use the \texttt{\textbf{void}} keyword to indicate that a function does not have a return value. For \texttt{void} functions, if there is no explicit \texttt{return;} statement, the function will automatically quit at the end of the function. 
 
 \begin{lstlisting}
 void giveComment(int score){

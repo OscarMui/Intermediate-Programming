@@ -1,9 +1,9 @@
 \chapter{Data types}
 
-C++ is a strongly typed language, i.e. you have to specify the type of variables when initializing them, and variables could not store data of different types.  
+You have to specify the type of variables when initializing them in C++. Each variable can only be used to store data of a single type.\footnote{Out of scope: this is what we call a strongly typed language}  
 
 \section{Primary data types}
-Primary data types are those that are not composed of other data types.
+\index{Primary data types} are those that are not composed of other data types.
 
 Basic knowledge: 1 bit is a single 0 or 1 in memory, 8 bits form 1 byte, we usually discuss memory in terms of bytes instead of bits.
 
@@ -25,14 +25,14 @@ Basic knowledge: 1 bit is a single 0 or 1 in memory, 8 bits form 1 byte, we usua
         
         \texttt{bool} &
         1 & 
-        true / false  &
+        \texttt{true} / \texttt{false}  &
         \tablefootnote{Out of scope: in C++ bool is a primary data type, in C you will have to include stdbool.h to use it.} 
         \\ \hline
         
         \texttt{char} &
         1 & 
         /  &
-        Stored using an integer, the ASCII code of the character involved.
+        Stored using an integer, the ASCII code of the character
         \\ \hline
         
         \texttt{float} &
@@ -48,6 +48,7 @@ Basic knowledge: 1 bit is a single 0 or 1 in memory, 8 bits form 1 byte, we usua
         \\ \hline
     \end{tabular}
 \end{table}
+
 \pagebreak
 
 These are variants of integers. They are of less importance.\footnote{Reference: \href{https://en.cppreference.com/w/cpp/language/types}{https://en.cppreference.com/w/cpp/language/types}, the range and bytes occupied differs for different version of C++}
@@ -87,7 +88,7 @@ These are variants of integers. They are of less importance.\footnote{Reference:
 
 As you saw in the last section, integers have a limited range. Overflow occurs when the value we want to store is out of the range that the data type can represent. 
 
-For integers (\texttt{int},\texttt{unsigned},\texttt{short},\texttt{long long}), the value it represents will go to the other end of the range when they overflow.\footnote{Reason behind out of scope: requires understanding of two's compliment}. 
+For integers (\texttt{int}, \texttt{unsigned}, \texttt{short}, \texttt{long long}), the value it represents will go to the other end of the range when they overflow.\footnote{Reason behind out of scope: requires understanding of two's compliment}. 
 
 For example,
 \begin{lstlisting}
@@ -104,15 +105,15 @@ cout << "After overflow: " << y << endl; //0
 
 \section{Floating point values}
 
-OK, the range of floating point values (\texttt{float} and \texttt{double}) are much larger than ints, so is it a good idea to use them all the time? NO!
+OK, the range of \index{floating point values} (\texttt{float} and \texttt{double}) are much larger than ints, so is it a good idea to use them all the time? NO!
 
-Floating point values store values inaccurately, and rounding errors accumulate. Even though using \texttt{double} reduces the rounding error, floating point values are still nasty in some ways. 
+Floating point values store values inaccurately, and \texttt{rounding errors} accumulate. Even though using \texttt{double} reduces the rounding error, floating point values are still nasty in some ways. 
 
 You are advised to only use \texttt{double} to store numbers with decimal points and very large numbers (those can't be represented by \texttt{long long}). And never use \texttt{float}\footnote{Memory usage is not a problem nowadays}.
 
 \section{Boolean operators}
 
-A \index{Boolean} variable (\texttt{bool}) can be either \texttt{true} or \texttt{false}. There are three operators that we can perform on \texttt{bool}s. Including AND (\&\&), OR (\textbar\textbar), NOT (!).
+A \index{Boolean} variable (\texttt{bool}) can be either \texttt{true} or \texttt{false}. There are three operations that we can perform on \texttt{bool}s. Including AND (\&\&), OR (\textbar\textbar), NOT (!).
 
 \begin{table}[h]
     \centering
@@ -156,7 +157,7 @@ A \index{Boolean} variable (\texttt{bool}) can be either \texttt{true} or \textt
     \end{tabular}
 \end{table}
 
-C/C++ recognizes 0 as false and other non-zero values as true. (using 1 is usually the convention) It is common to use 0 instead of false and 1 instead of true.
+C/C++ recognizes 0 as false and other non-zero values as true. It is common to use 1 instead of true\footnote{a convention} and 0 instead of false.
 
 You could do \texttt{while(true) ...} for an infinite loop, but you might as well do \texttt{while(1) ...}
 \vspace{6mm}
@@ -201,27 +202,47 @@ a += 1;
 printf("%d %c\n",a,a); //66 B
 \end{lstlisting}
 
-It seems that each character is associated with an integer. That's right! 128 (later extended to 256) frequently used characters are chosen and they are associated with an integer between 0 and 127.\footnote{ASCII Table: \href{https://simple.wikipedia.org/wiki/ASCII}{https://simple.wikipedia.org/wiki/ASCII}}
+It seems that each character is associated with an integer. That's right! 128 (later extended to 256) frequently used characters are chosen (including the English letters, digits, and common symbols) and they are associated with an integer between 0 and 127.\footnote{ASCII Table: \href{https://simple.wikipedia.org/wiki/ASCII}{https://simple.wikipedia.org/wiki/ASCII}}
 
 We can perform arithmetic operations with \texttt{char} variables, as they are just integers! 
 
+\section{Type casting}
+
+We can covert values from one type to another, by putting the target type, enclosed with parenthesis, on the left of the value.
+
+\begin{lstlisting}
+cout << (int) 40.9 << endl; //40
+cout << (bool) -1 << endl; //1
+cout << (int) 'a' << endl; //97
+\end{lstlisting}
+
+When floating point values are cast to an integer, it is \textbf{rounded down}. Non-zero values are cast to \texttt{true}, hence \texttt{1} is displayed. The character \texttt{a} is converted to an integer based on its ASCII code.
+
+Type cast is done automatically whenever possible\footnote{When it is not possible, e.g. from integer array to character, an error would occur} when a value is assigned to a variable of a different type. Note that type of a variable cannot be changed. 
+
+\begin{lstlisting}
+int x;
+x = 40.9; //x is an int, so 40.9 got cast into an integer, 40, before storing into x
+cout << x << endl; //40
+\end{lstlisting}
+
 \section{Strings}
 
-Strings are just an array of characters, but there are a few nasty catches.
+Strings are best understood as an array of characters, we would store them using a character array such as  \texttt{char s[10] = "Hello";} \footnote{We would avoid using the type \texttt{string} in C++, but use character arrays to store strings}, but there are a few nasty catches.
 
 \subsection*{Strings terminate with a null character \texttt{\textbackslash 0}}
 
-Let's think about what \texttt{char s[10] = "Hello";} does. It is actually equivalent to 
+Hm, the word \texttt{hello} only has 5 characters, can we do \texttt{char s[5] = "Hello";} instead? Not really.
 
-\includegraphics[width=16cm]{ch3-nullstring.png}
+\includegraphics[width=15cm]{ch3-nullstring.png}
 
-The \texttt{\textbackslash 0} (ASCII code = 0) indicates the end of a string, it is necessary for C/C++ programs so that they could identify when the string ends. If you remove it by hand something bad would happen...
+The \texttt{\textbackslash 0} (ASCII code = 0) indicates the end of a string, it is necessary for C/C++ programs so that they could identify when the string ends. If you remove it something bad would happen...
 
 Don't trust me? Try running:
 
 \begin{lstlisting}
-char s[4] = "FGH"; //without the terminating character
-s[3] = 'I';
+char s[4] = "FGH";
+s[3] = 'I'; //Remove the \0 character and replace it by character I
 cout << s << endl; //FGHI followed by a bunch of nonsense, the nonsense is different everytime we run the program
 
 char s1[7] = { 'A', 'B', 'C', '\0', 'D', 'E', '\0'};
@@ -236,30 +257,24 @@ The second example verifies that the null character is recognized by C/C++ as th
 
 \textbf{So we always have to reserve one more space for the null character.}
 
-\subsection*{\texttt{cin} obtains input word by word by default}
+\subsection*{\texttt{cin} obtains input word by word}
 
-\begin{lstlisting}
-char s2[20];
-cin >> s2; //You input Hello world
-cout << s2 << endl; //Hello
-\end{lstlisting}
-
-This example shows that \texttt{cin} only catches the first word and store it in s2, while leaving other words for another variable.
+This example shows that \texttt{cin} only catches the first word and store it in \texttt{s2}, while leaving other words for future calls of \texttt{cin}.
 
 \begin{lstlisting}
 char s2[20], s3[20];
-cin >> s2; //You input Hello world
+cin >> s2; //You inputted Hello world
 cout << s2 << endl; //Hello
 
 cin >> s3; //The computer did not ask for your input
 cout << s3 << endl; //world
 \end{lstlisting}
 
-However, sometimes you want to obtain a whole line of text input rather than just a word. You could use \texttt{cin.getline}. It accepts two arguments, first the string variable (the character array you defined), second the maximum amount of characters it should get (you have to set it equal to the size of the string)
+However, sometimes you want to obtain a whole line of text input rather than just a word. You could use \texttt{cin.getline}. It accepts two arguments, first the string variable (the character array you defined), second the maximum amount of characters it should get (you have to set it less than or equal to the size of the chracter array)
 
 \begin{lstlisting}
 char s4[20];
-cin.getline(s4,20); //You input Good morning
+cin.getline(s4,20); //You inputted Good morning
 cout << s4 << endl; //Good morning
 \end{lstlisting}
 
@@ -267,7 +282,7 @@ Unfortunately it is not as simple as that, things get complicated when you have 
 
 \begin{lstlisting}
 char s2[20], s3[20];
-cin >> s2; //You input Hello world
+cin >> s2; //You inputted Hello world
 cout << s2 << endl; //Hello
 
 cin >> s3; //The computer did not ask for your input
@@ -275,16 +290,16 @@ cout << s3 << endl; //world
 
 char s4[20];
 cin.getline(s4,20); //The computer did not ask for your input
-cout << s4 << endl; //Probably a next line symbol
+cout << s4 << endl; //Probably a next line symbol (\n)
 \end{lstlisting}
 
-This behaviour is probably\footnote{Who is certain about this chaos?} due to the next line symbol of the Hello world line has not been read, and \texttt{cin.getline} reads the text until it hits a next line symbol, so the only thing stored in s4 is the next line symbol...
+This behaviour is probably\footnote{Who is certain about this chaos?} due to the next line symbol of the Hello world line has not been read (\texttt{\textbackslash n} is inputted when you press enter to confirm your input), and \texttt{cin.getline} reads the text until it hits a next line symbol, and that is the only thing stored in \texttt{s4}.
 
-What you could do is use \texttt{cin.clear} and \texttt{cin.ignore(10000,'\textbackslash n'} before \texttt{cin.getline}, in order to clear the buffer.
+What you could do is use \texttt{cin.clear()} and \texttt{cin.ignore(10000,'\textbackslash n')} (both are required) before \texttt{cin.getline}, in order to clear the buffer.
 
 \begin{lstlisting}
 char s2[20], s3[20];
-cin >> s2; //You input Hello world
+cin >> s2; //You inputted Hello world
 cout << s2 << endl; //Hello
 
 cin >> s3; //The computer did not ask for your input
@@ -293,7 +308,7 @@ cout << s3 << endl; //world
 char s4[20];
 cin.clear();
 cin.ignore(10000, '\n');
-cin.getline(s4,20); //You input Good morning
+cin.getline(s4,20); //You inputted Good morning
 cout << s4 << endl; //Good morning
 \end{lstlisting}
 
@@ -301,7 +316,7 @@ Alternatively, you could call \texttt{cin.getline} twice, the first one to read 
 
 \begin{lstlisting}
 char s2[20], s3[20];
-cin >> s2; //You input Hello world
+cin >> s2; //You inputted Hello world
 cout << s2 << endl; //Hello
 
 cin >> s3; //The computer did not ask for your input
@@ -309,17 +324,22 @@ cout << s3 << endl; //world
 
 char s4[20];
 cin.getline(s4,20); //read the previous line
-cin.getline(s4,20); //You input Good morning
+cin.getline(s4,20); //You inputted Good morning
 cout << s4 << endl; //Good morning
 \end{lstlisting}
 
 \subsection{Strings VS string variables}
 
 The following two restrictions concern string variables but not strings. Now let's differentiate strings and string variables.
+\vspace{6mm}
+
+Strings are hard coded in the source code, only for one time use. Normal users (not you, you are the programmer) cannot change it.
+
+String variables are character arrays that are used to store strings. They can be changed by users if their values are obtained by input, e.g. \texttt{cin}. 
 
 \subsection*{String variables cannot be compared normally}
 
-Strings are only for one time use. You can compare them normally using comparison operators.
+You can compare them normally using comparison operators.
 
 \begin{lstlisting}
 cout << ("ABC"=="DEF") << endl; //0
@@ -327,7 +347,7 @@ cout << ("ABC" < "DEF") << endl; //1 (why?)
 cout << ("abc" <= "ABC") << endl; //0 (why?)
 \end{lstlisting}
 
-String variables are character arrays that are used to store strings. Sadly they cannot be compared normally. (use strcmp instead)\footnote{Reason out of scope: because the references of the arrays are compared instead of their values. You may understand more in Chapter 5 but the full concept is not necessary}
+Sadly they return unmeaningful results when string variables are being compared. (use strcmp instead)\footnote{Reason out of scope: because the references of the arrays are compared instead of their values. You may understand more in Chapter 5 but the full concept is not necessary}
 
 \begin{lstlisting}
 char s5[20] = "ABC", s6[20] = "ABC", s7[20] = "DEF";
@@ -336,22 +356,33 @@ cout << (s5==s6) << endl; //0
 cout << (s5<s6) << endl; //0
 \end{lstlisting}
 
+Use \texttt{strcmp} instead (will be formally introduced next section)
+\begin{lstlisting}
+char s8[20] = "ABC", s9[20] = "ABC", s10[20] = "DEF";
+cout << strcmp(s8,s9) << endl; //0, implying s8 equals s9
+cout << strcmp(s8,s10) << endl; //negative value, implying s8 < s10
+\end{lstlisting}
+
 \subsection*{The whole string variable cannot be reassigned}
 
 Thought you could do this? Nah...
 
 \begin{lstlisting}
-char s8[20] = "ABCD";
-s8 = "XYZ"; //SYNTAX ERROR
+char s11[20] = "ABCD";
+s11 = "XYZ"; //SYNTAX ERROR
 \end{lstlisting}
 
-Well you could do the following instead if you are desperate, but there is a better way in the next section. (strcpy)
+Well you could do the following instead if you are desperate, but it is much better using \texttt{strcpy} (will be formally introduced next section)
 
 \begin{lstlisting}
-s8[0] = 'X'; 
-s8[1] = 'Y'; 
-s8[2] = 'Z'; 
-s8[3] = '\0'; 
+//desperate way:
+s11[0] = 'X'; 
+s11[1] = 'Y'; 
+s11[2] = 'Z'; 
+s11[3] = '\0'; 
+
+//better way:
+strcpy(s11,"PQR");
 \end{lstlisting}
 
 
@@ -359,7 +390,7 @@ s8[3] = '\0';
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{|m{10em}|m{25em}|}
+    \begin{tabular}{|m{9em}|m{25em}|}
         \hline
         \textbf{Function} & 
         Usage 

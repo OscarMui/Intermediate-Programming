@@ -1,6 +1,6 @@
 \chapter{Searching Algorithms}
 
-In this chapter we will look into some algorithms that search for a specific integer in an array, and return its index in the array. We will look at how they work and analyze their efficiency (using time complexity). We will only focus on implementation using arrays.
+In this chapter we will look into some algorithms that search for a specific integer\footnote{The algorithms also work for other data types. However integer is selected for easier understanding.} in an array, and return its index in the array. We will look at how they work and analyze their efficiency (using time complexity). We will only focus on implementation using arrays.
 
 \section{Further resources (Ch 7-8)}
 
@@ -8,7 +8,7 @@ Watching animations of these algorithms is useful in understanding how they work
 
 \section{Linear search}
 
-Linear search works with all arrays, it returns the location of the leftmost occurrence of the integer when there are duplicates, and returns \textit{n} if the integer is not found.
+Linear search returns the location of the leftmost occurrence of the integer when there are duplicates, and returns \textit{n} if the integer is not found.
 
 \begin{lstlisting}
 int main(){
@@ -20,7 +20,7 @@ int main(){
 }
 \end{lstlisting}
 
-It might not be completely clear whether the target is in the array or not, but have to check by:
+It might not be completely clear whether the target is in the array or not, we have to check by \textt{i$<$n}:
 
 \begin{lstlisting}
 int i = linearSearch(x,8,target);
@@ -52,7 +52,7 @@ while(i<n&&x[i]!=target) i++;
 //can we change the order of the tests?
 \end{lstlisting}
 
-Time complexity: O(n) comparisons
+Time complexity: $O(n)$ comparisons
 \vspace{6mm}
 
 The worst case occurs when the target is not found or the target is the last element, the while loop is run \textit{n} times to search through the whole array before returning.
@@ -63,19 +63,23 @@ The worst case occurs when the target is not found or the target is the last ele
 
 In fact, we can do better. Yet this requires the array to be \textbf{sorted} beforehand.
 
-Every time we can cut the array in half, and compare the target with the middle element (x[m]). Let's say the segment that the target might be in is x[i..j) (including i and excluding j). We try to maintain that structure that the right hand index is always excluded, and the left hand index is always included, to avoid complications of code.
+Every time we can cut the array in half, and compare the target with the middle element (x[m]). 
 \vspace{6mm}
 
-If x[m] $<$ target, we know all elements with index $<=$ m are also smaller than the target, because the array is sorted. We can set the lower boundary to m+1.
+Let's say the segment that the target might be in is x[i..j) (including i and excluding j). We try to maintain that structure that the right hand index is always excluded, and the left hand index is always included, to avoid complications of code.
+\vspace{6mm}
 
-If x[m] $>$ target, we know all elements with index $>=$ m are also larger than the target, because the array is sorted. We can then set the upper boundary to m. (excluding m)
+If x[m] $<$ target, we know all elements with index $<=$ m are also smaller than the target, because the array is sorted. We can set the lower boundary (i) to m+1.
+
+If x[m] $>$ target, we know all elements with index $>=$ m are also larger than the target, because the array is sorted. We can then set the upper boundary (j) to m. (excluding m)
+\vspace{6mm}
 
 In either case, around half of the array is eliminated from consideration.
 
-Process continues when the target is found (x[m] = target).
+Process continues until the target is found (x[m] = target).
 \vspace{6mm}
 
-\includegraphics[width=14cm]{images/ch7-binarysearch1.png}
+\includegraphics[width=13cm]{images/ch7-binarysearch1.png}
 \pagebreak
 
 Here is an implementation: \textit{(NOT the one you should follow)}
@@ -109,7 +113,7 @@ int main(){
     cout << binarySearch1(x,8,2) << endl; //1
     cout << binarySearch1(x,8,7) << endl; //6
 
-    //there are multiple 3s, should it return 2,3 or 4? Is it consistent?
+    //there are multiple 3s, should it return 2,3 or 4? Is the behaviour consistent?
     cout << binarySearch1(x,8,3) << endl; //4
 
     //4 is not in the array, can it return something more meaningful other than -1?
@@ -121,11 +125,12 @@ int main(){
 
 \subsection*{To be precise}
 
-How about duplicate targets in the array? To maintain consistency, we should return the location of the leftmost occurrence of the target. 
+How about duplicate targets in the array? To maintain consistency, we should return the location of the leftmost occurrence of the target. Hence, we cannot just stop when a match is found.
 
 How about targets that are not found in the array? We should return the location where the target can be inserted to maintain the order of the array. 
 
 To achieve these goals, we have to change our concept slightly. (Surprisingly these changes lead to neater code)
+\vspace{6mm}
 
 We will imagine that we split the array into three sections, x[0..i) contains all elements that are checked $<$ target, x[i..j) contains all elements that are not checked yet, and x[j..n) contains all elements that are checked $>=$ target. 
 
@@ -134,7 +139,8 @@ We maintain this relationship from start to finish. Initially, we set i=0, j=n, 
 
 Which value shall we return? If the value is present, x[0..i) contains all elements that $<$ target, and x[i..n)\footnote{remember i=j when binary search terminates} contains all elements that $>=$ target. 
 
-If the target is present, it will be at location i. If there are duplicates, the leftmost occurrence will be at location i. If the target is not present. The proper location to insert it is also location i. So i should be returned regardless. Neat!
+If the target is present, it will be at location i. If there are duplicates, the leftmost occurrence will be at location i. If the target is not present. The proper location to insert it is also location i. So i is the correct value to return in all cases. Neat!
+\vspace{6mm}
 
 Followed are some illustrations that further elaborate on the concept, and also the implementation in C++.
 \vspace{6mm}
@@ -180,7 +186,7 @@ int main(){
 }
 \end{lstlisting}
 
-It might not be completely clear whether the target is in the array, but we could easily check by:
+It might not be completely clear whether the target is in the array, but we could easily check by \texttt{i$<$n \&\& x[i]==target}:
 
 \begin{lstlisting}
 int i = binarySearch(x,8,target);
@@ -193,7 +199,7 @@ else
 Time complexity: $O(\log n)$ comparisons
 \vspace{6mm}
 
-In each step, around half of the array is eliminated from consideration, giving a total of $\log_2 n$ Each step takes constant time.
+In each step, around half of the array is eliminated from consideration, giving a total of $\log_2 n$ steps. Each step takes constant time.
 
 \section{Conclusion}
 
@@ -202,7 +208,7 @@ In each step, around half of the array is eliminated from consideration, giving 
     \begin{tabular}{|m{6em}|m{9em}|m{18em}|}
         \hline  
         \textbf{Searching Algorithms} & 
-        \multicolumn{2}{l|}{Goal: Find location of target in an array}
+        \multicolumn{2}{l|}{Goal: Find location of a target in an array}
         \\ \hline \hline
         
         Algorithm &

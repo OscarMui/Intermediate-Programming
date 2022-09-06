@@ -1,8 +1,8 @@
 \chapter{Sorting Algorithms}
 
-In this chapter we will look at some algorithms that sort an array of integers of length \textit{n} in ascending order. We will look at how they work and analyze their efficiency (using time complexity). We will only focus on implementation using arrays.
+In this chapter we will look at some algorithms that sort an array of integers\footnote{The algorithms also work for other data types with linear order defined. However integer is selected for easier understanding.} of length \textit{n} in ascending order. We will look at how they work and analyze their efficiency (using time complexity). We will only focus on implementation using arrays.
 
-To demonstrate different sorting algorithms, we would use this code right here as a template:
+To demonstrate different sorting algorithms, we would use this code right here as a template to verify whether the algorithms work:
 
 \begin{lstlisting}
 #include <iostream>
@@ -11,7 +11,7 @@ int main(){
     int x[] = {3,1,4,1,5,9,2,6};
     
     //the sorting function accepts the array and the length of the array, this is common practice, as it is impossible to determine the length of the array in C/C++ when only the array is given.
-    sort(x,8);
+    sort(x,8); //replace with name of the sorting function
 
     //print everything in x, with commas properly placed
     //check if the answer is 1,1,2,3,4,5,6,9
@@ -25,7 +25,7 @@ int main(){
 \pagebreak
 \section{Bubble sort}
 
-Bubble sort swaps the places of two adjacent integers when it realizes they are out of order, until they are all sorted.
+Bubble sort swaps the places of two adjacent integers when it realizes they are out of order, until all integers are all sorted.
 
 \includegraphics[width=15cm]{ch8-bubblesort.png}
 
@@ -42,14 +42,14 @@ Bubble sort swaps the places of two adjacent integers when it realizes they are 
 
 \pagebreak
 
-At the \textit{i}th iteration of the outer loop, the last \textit{i} elements of the array are put at their location. To guarantee the array is sorted, the inner loop is run \textit{n} times.
+At the \textit{i}th iteration of the outer loop, the last \textit{i} elements of the array are put at their sorted location. To guarantee the array is sorted, the inner loop is run \textit{n} times.
 \vspace{6mm}
 
 C++: (\textit{Exercise: Try to re-implement yourself.})
 \begin{lstlisting}
 void bsort(int x[], int n){
     for(int i = 0; i < n; i++){
-        for(int j = 0; j < n-i-1; j++){ //the last i elements are sorted
+        for(int j = 0; j < n-i-1; j++){ //the last i elements are sorted, no need to loop again
             if(x[j]>x[j+1]){
                 int temp = x[j];
                 x[j] = x[j+1];
@@ -63,7 +63,7 @@ void bsort(int x[], int n){
 Time complexity: $O(n^2)$ comparisons
 \vspace{6mm}
 
-There are \textit{n} steps, each step involves checking and swapping data from start to finish, taking time proportional to \textit{n}.
+There are \textit{n} steps, each step involves checking and swapping data from start to finish, taking time proportional to \textit{n} (in the worst case).
 
 \pagebreak
 
@@ -88,13 +88,12 @@ Selection sort selects the minimum element and put it in front of the sorted arr
 
 \pagebreak
 
-In practice, we will not use two separate arrays, we can just use one and put our sorted array \textit{y} in front of \textit{x}.
-\vspace{6mm}
-
 C++: (\textit{Exercise: Try to re-implement yourself.})
 \begin{lstlisting}
 void ssort(int x[], int n){
     for(int i=0; i<n; i++){
+    
+        //find minimum value and its index in the array
         int minValue = x[i]; //Can we put 0 here instead?
         int minIndex = i;
         for(int j=i; j<n; j++){
@@ -103,8 +102,8 @@ void ssort(int x[], int n){
                 minIndex = j;
             }
         }
+        
         //swap x[i] with x[minIndex]
-        //this first line is not needed (int temp = x[minIndex]);, because we have obtained minValue earlier
         x[minIndex] = x[i];
         x[i] = minValue;        
     }
@@ -140,6 +139,7 @@ Insertion sort assumes the leftmost element is a sorted array, then slowly adds 
 %     x[j] = v
 % \end{lstlisting}
 % \vspace{6mm}
+\pagebreak
 
 C++: (\textit{Exercise: Try to re-implement yourself.})
 \begin{lstlisting}
@@ -237,8 +237,8 @@ void merge(int x[], int a, int m, int b){
 void msort(int x[], int start, int end){
     if(start+1>=end) return; //base case: the array is empty or with only 1 element
     int mid = (start+end)/2;
-    msort(x,start,mid); //msort first half [start..mid)
-    msort(x,mid,end); //msort second half [mid..end)
+    msort(x,start,mid); //msort first half recursively [start..mid)
+    msort(x,mid,end); //msort second half recursively [mid..end)
     merge(x,start,mid,end);
 }
 \end{lstlisting}
@@ -264,7 +264,6 @@ merge [] ys = ys
 merge xs [] = xs
 merge (x:xs) (y:ys) = if x <= y then x:merge xs (y:ys) else y:merge (x:xs) ys
     
-
 halve xs = (take m xs, drop m xs)
     where m = (length xs) `div` 2
 
@@ -297,7 +296,7 @@ Don't have time to cover, there should be plenty of resources online on this top
         
         \makecell[lb]{Bubble sort \\ Selection sort \\ Insertion sort} &
         $O(n^2)$ &
-        Only used on short arrays because of their poor time complexity (seldom the case for programming competitions)
+        Only used on short arrays (seldom the case for programming competitions) because of their poor time complexity 
         \\ \hline
         
         \makecell[lb]{Merge sort \\ Quicksort} &

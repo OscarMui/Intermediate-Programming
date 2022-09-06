@@ -1,11 +1,11 @@
 \chapter{Stacks and Queues}
 
-Stacks and queues are data structures, adapted from our daily life. We realized that we can implement stacks and queues using arrays or linked lists. We will look into them in this chapter. We will look at the concept on how to implement them efficiently and write C++ code for the array implementation.
+Stacks and queues are data structures, adapted from our daily lives. We realized that we can implement stacks and queues using arrays or linked lists. We will look at the concept on how to implement them efficiently (All of their operations should be done in $O(1)$ time, that is constant time regardless of size.) and write C++ code for the array implementation\footnote{As mentioned in Chapter 5 it is difficult to code the linked list implementation in C++, hence we will not do so in this chapter and also the upcoming chapters, however, an intuition will be given on how to do so potentially}.
 
 \includegraphics[width=15cm]{images/ch6-stackqueue.png}
 
 \section{Stack}
-Say you have a stack of towels put in a box, you would probably use the top towels first and make your way to the bottom, and you would also put new washed towels on the top. This is a stack, elements can only be inserted and removed at one end, what we call, \index{last in first out}(LIFO).
+Say you have a stack of towels put in a box, you would probably first use the towels on top, and you would also put new washed towels on the top. This is a stack, elements can only be inserted and removed at one end, what we call, last in first out (LIFO)\index{last in first out (LIFO)}.
 
 \begin{table}[h]
     \centering
@@ -20,7 +20,7 @@ Say you have a stack of towels put in a box, you would probably use the top towe
         \\ \hline
         
         \texttt{int pop()} &
-        Remove the element at the top of the stack and return its value.
+        Remove the element at the top of the stack, and return value of the removed element.
         \\ \hline
         
         \texttt{bool isEmpty()} &
@@ -33,19 +33,19 @@ Say you have a stack of towels put in a box, you would probably use the top towe
     \end{tabular}
 \end{table}
 
-Stacks can be easily implemented by both arrays and linked lists. As demonstrated by the illustrations. All processes should be done in $O(1)$ time.
+Stacks can be easily implemented by both arrays and linked lists. As demonstrated by the illustrations. 
 
 \includegraphics[width=15cm]{images/ch6-stackarray.png}
 
 \includegraphics[width=15cm]{images/ch6-stacklinkedlist.png}
 
-Let's look at the array implementation in code. In reality, array memory is limited, so we impose a MAX value and stop pushing elements when the stack is full.
+Let's look at the array implementation in code. In the illustrations, we assumed that the array have an infinite size. In reality, array memory is limited, so we impose a MAX value and stop pushing elements when the stack is full.
 \vspace{6mm}
 
 C++: (\textit{Exercise: Try to re-implement yourself.})\footnote{The way to deal with the warnings when the stack is full/ empty depends on the use case. We will not cover it here.}
 \begin{lstlisting}
 const int MAX = 20; //can be larger
-int stk[MAX] = {};
+int stk[MAX] = {}; //declare new empty array of size MAX
 int _size = 0;
 
 void push(int x){
@@ -94,7 +94,7 @@ int main(){
 } 
 \end{lstlisting}
 \section{Queue}
-Just like a normal queue in daily life, people queue at one end and they are served when they reach the other end, what we call \index{first in first out} (FIFO).
+Just like a normal queue in daily life, people queue at one end and they are served when they reach the other end, what we call first in first out (FIFO)\index{first in first out (FIFO)}.
 
 \begin{table}[h]
     \centering
@@ -109,7 +109,7 @@ Just like a normal queue in daily life, people queue at one end and they are ser
         \\ \hline
         
         \texttt{int dequeue()} &
-        Remove the element at the other end of the queue.
+        Remove the element at the other end of the queue, and return value of the removed element.
         \\ \hline
         
         \texttt{bool isEmpty()} &
@@ -122,7 +122,7 @@ Just like a normal queue in daily life, people queue at one end and they are ser
     \end{tabular}
 \end{table}
 
-Queues can be easily implemented by both arrays and linked lists. All processes should be done in $O(1)$ time.
+Queues can be easily implemented by both arrays and linked lists.
 
 Let's first focus on the array implementation:
 
@@ -181,8 +181,9 @@ int main(){
 \end{lstlisting}
 
 You can quickly see that there is a problem, variables \texttt{i} and \texttt{j} keep increasing but never decrease, eventually the queue cannot be used after \texttt{MAX} amount of insertions. This is unsustainable and we realized we can work around it.
+\vspace{6mm}
 
-The solution is a circular queue. Value of variables \texttt{i} and \texttt{j} circle round and round, going back to 0 after reaching \texttt{MAX-1}.
+The solution is a \textbf{circular queue}\index{circular queue}. Value of variables \texttt{i} and \texttt{j} circle round and round, going back to 0 after reaching \texttt{MAX-1}.
 
 \includegraphics[width=14cm]{images/ch6-cq.png}
 
@@ -205,7 +206,7 @@ void enqueue(int x){
         return;
     }
     cq[j] = x;
-    j = (j+1)%MAX;
+    j = (j+1)%MAX; //cycles back to 0 after MAX-1
     _size++;
 }
 
@@ -215,7 +216,7 @@ int dequeue(){
         return -1;
     }
     int x = cq[i];
-    i = (i+1)%MAX;
+    i = (i+1)%MAX; //cycles back to 0 after MAX-1
     _size--;
     return x;
 }
@@ -226,6 +227,6 @@ bool isEmpty(){ return _size==0;}
 \end{lstlisting}
 \vspace{6mm}
 
-Finally, the outline of the linked list implementation:
+Finally, the outline of the linked list implementation is as follows. An additional tail pointer is used so that both enqueue and dequeue can be done in $O(1)$ time.
 
 \includegraphics[width=14cm]{images/ch6-qlinkedlist.png}

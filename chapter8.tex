@@ -165,6 +165,9 @@ There are \textit{n} steps, each step involves finding the correct location to i
 
 \section{Merge sort}
 
+\textit{Difficult topic}
+\vspace{6mm}
+
 Merge sort first splits the array repeatedly until all arrays are of length 1, where they are sorted without any actions. Then it merges back them two by two in order, eventually we get back the whole array in sorted order.
 
 \includegraphics[width=15cm]{ch8-mergesort.png}
@@ -269,13 +272,64 @@ halve xs = (take m xs, drop m xs)
 
 \end{lstlisting}
 
-It looks a lot different and different properties in Haskell made the code so much neater.
+Of course you won't be able to understand the details of the code, but what I want you to know is that merge sort can be implemented with just 10 lines of code in some other languages. It is not necessarily one and a half page long.
 
 \section{Quicksort}
 
+\textit{Of less importance, difficult topic}
+\vspace{6mm}
+
 Don't have time to cover, there should be plenty of resources online on this topic.
 
+% C++: (\textit{Exercise: Try to re-implement yourself.})
+
+% Call by \texttt{qsort(x,0,8);}
+
+% \begin{lstlisting}
+% int partition(int x[], int l, int r){
+
+%     //set the first element in x[l..r) to be the pivot
+%     int p = x[l];
+    
+%     //refer to illustration on the maintenance of variables i and j
+%     int i = l+1;
+%     int j = r;
+%     while(i<j){
+%         if(x[i] < p){
+%             i++;
+%         }else{
+%             j--;
+%             int temp = x[i];
+%             x[i] = x[j];
+%             x[j] = temp;
+%         }
+%     }
+    
+%     //swap x[l] and x[i-1], so that the pivot is in the middle
+%     x[l] = x[i-1];
+%     x[i-1] = p;
+    
+%     //return location of the pivot
+%     return i-1;
+% }
+
+% void qsort(int x[], int start, int end){
+%     if(start+1 >= end) return; //base case: the array is empty or with only 1 element
+%     int k = partition(x,start,end); 
+    
+%     //the array is now in three parts: 
+%     //1. x[start..k) all have values < pivot 
+%     //2. x[k] is the pivot
+%     //3. x[k+1..end) all have values >= pivot
+%     //we recursively sort the first and third parts
+%     qsort(x,start,k);
+%     qsort(x,k+1,end);
+% }
+% \end{lstlisting}
 \section{Counting sort}
+
+\textit{Of less importance}
+\vspace{6mm}
 
 Don't have time to cover, there should be plenty of resources online on this topic.
 

@@ -180,16 +180,21 @@ int main(){
 }
 \end{lstlisting}
 
+\subsection{Circular queues}
+
+\textit{Difficult topic}
+\vspace{6mm}
+
 You can quickly see that there is a problem, variables \texttt{i} and \texttt{j} keep increasing but never decrease, eventually the queue cannot be used after \texttt{MAX} amount of insertions. This is unsustainable and we realized we can work around it.
 \vspace{6mm}
 
 The solution is a \textbf{circular queue}\index{circular queue}. Value of variables \texttt{i} and \texttt{j} circle round and round, going back to 0 after reaching \texttt{MAX-1}.
 
-\includegraphics[width=14cm]{images/ch6-cq.png}
+\includegraphics[width=15cm]{images/ch6-cq.png}
 
 There is an ambiguity when \texttt{i=j}, it can either mean the queue is completely full, or the queue is completely empty. One solution is to introduce a \texttt{size} variable, to keep track of the size and differentiate the two cases.
 
-\includegraphics[width=14cm]{images/ch6-cqij.png}
+\includegraphics[width=15cm]{images/ch6-cqij.png}
 
 C++: \textit{(Exercise:  Try to re-implement yourself.)}
 
@@ -229,4 +234,4 @@ bool isEmpty(){ return _size==0;}
 
 Finally, the outline of the linked list implementation is as follows. An additional tail pointer is used so that both enqueue and dequeue can be done in $O(1)$ time.
 
-\includegraphics[width=14cm]{images/ch6-qlinkedlist.png}
+\includegraphics[width=15cm]{images/ch6-qlinkedlist.png}

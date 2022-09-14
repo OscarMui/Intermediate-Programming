@@ -3,7 +3,7 @@
 You have to specify the type of variables when initializing them in C++. Each variable can only be used to store data of a single type.\footnote{Out of scope: this is what we call a strongly typed language}  
 
 \section{Primary data types}
-\index{Primary data types} are those that are not composed of other data types.
+Primary data types\index{Primary data types} are those that are not composed of other data types.
 
 Basic knowledge: 1 bit is a single 0 or 1 in memory, 8 bits form 1 byte, we usually discuss memory in terms of bytes instead of bits.
 
@@ -84,7 +84,7 @@ These are variants of integers. They are of less importance.\footnote{Reference:
     \end{tabular}
 \end{table}
 
-\section{Integer \index{overflow}}
+\section{Integer overflow\index{overflow}}
 
 As you saw in the last section, integers have a limited range. Overflow occurs when the value we want to store is out of the range that the data type can represent. 
 
@@ -105,7 +105,7 @@ cout << "After overflow: " << y << endl; //0
 
 \section{Floating point values}
 
-OK, the range of \index{floating point values} (\texttt{float} and \texttt{double}) are much larger than ints, so is it a good idea to use them all the time? NO!
+OK, the range of floating point values\index{floating point values} (\texttt{float} and \texttt{double}) are much larger than ints, so is it a good idea to use them all the time? NO!
 
 Floating point values store values inaccurately, and \texttt{rounding errors} accumulate. Even though using \texttt{double} reduces the rounding error, floating point values are still nasty in some ways. 
 
@@ -113,7 +113,7 @@ You are advised to only use \texttt{double} to store numbers with decimal points
 
 \section{Boolean operators}
 
-A \index{Boolean} variable (\texttt{bool}) can be either \texttt{true} or \texttt{false}. There are three operations that we can perform on \texttt{bool}s. Including AND (\&\&), OR (\textbar\textbar), NOT (!).
+A Boolean\index{Boolean} variable (\texttt{bool}) can be either \texttt{true} or \texttt{false}. There are three operations that we can perform on \texttt{bool}s. Including AND (\&\&), OR (\textbar\textbar), NOT (!).
 
 \begin{table}[h]
     \centering

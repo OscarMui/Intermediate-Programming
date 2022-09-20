@@ -1,4 +1,4 @@
-\chapter{Data types}
+\chapter{Data Types}
 
 You have to specify the type of variables when initializing them in C++. Each variable can only be used to store data of a single type.\footnote{Out of scope: this is what we call a strongly typed language}  
 
@@ -107,7 +107,7 @@ cout << "After overflow: " << y << endl; //0
 
 OK, the range of floating point values\index{floating point values} (\texttt{float} and \texttt{double}) are much larger than ints, so is it a good idea to use them all the time? NO!
 
-Floating point values store values inaccurately, and \texttt{rounding errors} accumulate. Even though using \texttt{double} reduces the rounding error, floating point values are still nasty in some ways. 
+Floating point values store values inaccurately, and \textbf{rounding errors} accumulate. Even though using \texttt{double} reduces the rounding error, floating point values are still nasty in some ways. 
 
 You are advised to only use \texttt{double} to store numbers with decimal points and very large numbers (those can't be represented by \texttt{long long}). And never use \texttt{float}\footnote{Memory usage is not a problem nowadays}.
 

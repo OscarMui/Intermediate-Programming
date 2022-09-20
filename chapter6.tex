@@ -62,13 +62,8 @@ int pop(){
         cout << "WARNING: Stack is empty." << endl;
         return -1;
     }
-    int x = stk[_size];
     _size--;
-    return x;
-
-    //alternatively: (less intuitive)
-    // _size--;
-    // return stk[_size+1];
+    return stk[_size];
 }
 
 int size(){ return _size;}

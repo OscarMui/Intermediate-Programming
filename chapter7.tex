@@ -91,7 +91,7 @@ int binarySearch1(int x[], int n, int target){
     while(i<j){
         //array segment: x[i..j)
         //stopping condition is i=j because the array would be empty
-        int m = (i+j)/2;
+        int m = (i+j)/2; //rounded down automatically by C++
         if(x[m]<target){
             //new array segment: x[m+1..j)
             i = m+1;
@@ -108,16 +108,16 @@ int binarySearch1(int x[], int n, int target){
 
 int main(){
     int x[] = {1,2,3,3,3,5,7,9};
-
-    cout << binarySearch1(x,8,1) << endl; //0 
-    cout << binarySearch1(x,8,2) << endl; //1
+ 
+    cout << binarySearch1(x,8,1) << endl; //0
+    cout << binarySearch1(x,8,5) << endl; //5
     cout << binarySearch1(x,8,7) << endl; //6
 
     //there are multiple 3s, should it return 2,3 or 4? Is the behaviour consistent?
     cout << binarySearch1(x,8,3) << endl; //4
 
-    //4 is not in the array, can it return something more meaningful other than -1?
-    cout << binarySearch1(x,8,4) << endl; //-1
+    //8 is not in the array, can it return something more meaningful other than -1?
+    cout << binarySearch1(x,8,8) << endl; //-1
 }
 \end{lstlisting}
 
@@ -148,11 +148,13 @@ If the target is present, it will be at location i. If there are duplicates, the
 Followed are some illustrations that further elaborate on the concept, and also the implementation in C++.
 \vspace{6mm}
 
-\includegraphics[width=12.5cm]{images/ch7-binarysearch71.png}
+\includegraphics[width=14cm]{images/ch7-binarysearch51.png}
 
-\includegraphics[width=12.5cm]{images/ch7-binarysearch72.png}
+\includegraphics[width=14cm]{images/ch7-binarysearch52.png}
 
-\includegraphics[width=14cm]{images/ch7-binarysearch34.png}
+\includegraphics[width=14cm]{images/ch7-binarysearch3.png}
+
+\includegraphics[width=14cm]{images/ch7-binarysearch8.png}
 
 \pagebreak
 
@@ -179,13 +181,13 @@ int binarySearch(int x[], int n, int target){
 int main(){
     int x[] = {1,2,3,3,3,5,7,9};
 
-    cout << binarySearch(x,8,1) << endl; //0 
-    cout << binarySearch(x,8,2) << endl; //1
+    cout << binarySearch(x,8,1) << endl; //0
+    cout << binarySearch(x,8,5) << endl; //5
     cout << binarySearch(x,8,7) << endl; //6
 
     cout << binarySearch(x,8,3) << endl; //2 (leftmost occurance)
 
-    cout << binarySearch(x,8,4) << endl; //5 (the index that number 4 should be inserted)
+    cout << binarySearch(x,8,8) << endl; //7 (the index that number 8 should be inserted)
 }
 \end{lstlisting}
 

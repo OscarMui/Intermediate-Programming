@@ -19,20 +19,97 @@ mycodeschool explains concepts about computing pretty well. You can also watch h
 
 \section{Example: Factorial function}
 
+In \cref{sec:functions}, we wrote a non-recursive function that calculates the factorial of a number.
 \begin{lstlisting}
 int fact(int x){
-    if(x==0) return 1;
-    else return x*fact(x-1);
+    int y = 1;
+    for(int i = 1; i <= x; i++){
+        y *= i;
+    }
+    return y;
 }
-//What would happen if we input a negative number?
 \end{lstlisting}
 
-Internally, there is a \textbf{call stack}\index{call stack} that stores information about each function call (e.g. the values of the variables, what is left to do) so that they could resume in order.
+Here is an equivalent function that is recursive.
+
+\begin{lstlisting}
+int fact(int x){
+    if(x==0) return 1; //0! = 1
+    else return x*fact(x-1); //x! = x*(x-1)!
+}
+\end{lstlisting}
+
+Let's analyse the recursive version of the function. Internally, there is a \textbf{call stack}\index{call stack} that stores information about each function call (e.g. the values of the variables, what is left to do) so that they could resume in order.
 
 The figure shows what happens when I call \texttt{fact(4)}
 
 \includegraphics[width=15cm]{ch4-factorial.png}
 
 \texttt{fact(4)} is called, realizing it needs \texttt{fact(3)} to finish, the program pauses \texttt{fact(4)}, and puts it in the call stack, so that it remembers to resume it after getting the result of \texttt{fact(3)}. A similar process happened for \texttt{fact(3)}, \texttt{fact(2)} and \texttt{fact(1)}. Finally, when \texttt{fact(0)} is called, there is no need to rely on other function calls to obtain the return value 1. We call \texttt{fact(0)} the \textbf{base case}\index{base case}. With the result of \texttt{fact(0)}, \texttt{fact(1)} can be resumed, \texttt{fact(1)} is removed from the call stack and its result is computed. A similar process happened for \texttt{fact(2)}, \texttt{fact(3)} and \texttt{fact(4)}, giving the required result finally.
+\vspace{6mm}
 
-% \section{Example: Fast Exponentiation}
+\textit{To think about: What happens if we enter a negative number to both functions?}
+
+\subsection*{Hacky way to think about it}
+The above method of analysing recursive functions works for all functions, but it is troublesome and error prone. Luckily, the \texttt{fact} function is a special type of recursive functions\footnote{Tail-recursive functions} that can be understood using an easier alternative method.
+
+\begin{lstlisting}
+fact(4)
+= 4*fact(3)         (by the else clause of fact)
+= 4*3*fact(2)       (by the else clause of fact)
+= 4*3*2*fact(1)     (by the else clause of fact)
+= 4*3*2*1*fact(0)   (by the else clause of fact)
+= 4*3*2*1*1         (by the if clause of fact)
+= 24                (just arithmetic)
+\end{lstlisting}
+
+\section{Example: Exponentiation}
+
+Here is a recursive function to calculate $x^n$. \textit{Exercise: Implement a non-recursive version of the function.}
+
+\begin{lstlisting}
+int exp(int x, int n){
+    if(n == 0) return 0; //x^0 = 1
+    else return x*exp(x,n-1); //x^n = x*x^(n-1)
+}
+\end{lstlisting}
+
+The analysis is similar to the factorial function. Here is an example when exp(2,5) is called using the "hacky method".
+
+\begin{lstlisting}
+exp(2,5)
+= 2*exp(2,4)            (by the else clause of exp)
+= 2*2*exp(2,3)          (by the else clause of exp)
+= 2*2*2*exp(2,2)        (by the else clause of exp)
+= 2*2*2*2*exp(2,1)      (by the else clause of exp)
+= 2*2*2*2*2*exp(2,0)    (by the else clause of exp)
+= 2*2*2*2*2*1           (by the if clause of exp)
+= 32                    (just arithmetic)
+\end{lstlisting}
+
+\section{Example: Fast Exponentiation}
+
+The above method of calculating $x^n$ works but it is inefficient (linear in $n$, i.e. $O(n)$, see \cref{sec:bigO}). 
+
+People figured out a more efficient way of calculating $x^n$ (linear in $n$, i.e. $O(n)$, see \cref{sec:bigO}). 
+
+The mathematical formula is as follows:
+
+\begin{center}
+$x^1 = x$
+
+$x^{2n} = (x^2)^n$
+
+$x^{2n+1} = x \times (x^2)^n$
+\end{center}
+
+For example, $2^{10} = 4^5 = 4\times 16^2 = 4\times 256 = 1024$.
+
+The recursive code is as follows: \textit{Exercise: Implement a non-recursive version of the function.}
+
+\begin{lstlisting}
+int fastExp(int x, int n){
+    if(n == 1) return 0; //x^0 = 1
+    else return x*exp(x,n-1); //x^n = x*x^(n-1)
+}
+\end{lstlisting}

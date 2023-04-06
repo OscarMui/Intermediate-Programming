@@ -1,6 +1,15 @@
-\chapter{C++ Knowledge}
+% Translated to Java
 
-Here are some basic C++ knowledge, I bet you have seen some of the concepts in this chapter already on other occasions.
+\if\proglang1
+\chapter{Java Knowledge}
+\else
+\chapter{C++ Knowledge}
+\fi
+
+
+Here are some basic\if\proglang1 Java \else ~C++ \fi knowledge, I bet you have seen some of the concepts in this chapter already on other occasions.
+
+% Translated to Java end 
 
 \section{Further resources (Ch 2-3)}
 \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{Bucky's C++ Programming Tutorial}\footnote{Link: \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{https://www.youtube.com/watch?v=tvC1WCdV1XU\&list=PLAE85DE8440AA6B83}} (a YouTube playlist) covers most things that you need to know about C++, and also most of the things in this chapter. You only need to watch the first 20-30 videos, as it goes too deep in the later episodes.
@@ -87,7 +96,7 @@ It is wise to learn both \texttt{cstdio} and \texttt{iostream}, and to use the a
 
 \texttt{printf} is more superior than \texttt{cout} when you want to print some floating point values with a certain number of decimal places. (using \texttt{printf("\%.2f",num);})
 
-While it is easier to get input from a whole line using \texttt{cin.getline} (more in chapter 3).
+While it is easier to get input from a whole line using \texttt{cin.getline} (more in \cref{sec:cingetline}).
 
 \section{Conditionals}
 \subsection{\texttt{if} statements}
@@ -134,11 +143,22 @@ switch(x){
 }
 \end{lstlisting}
 
+% Translated to Java
+
 \section{Arrays}
+\label{sec:arrayintro}
 Arrays store sequences of data of the same type.
 
-Note that indices start with 0.
+\if\proglang1
+\begin{lstlisting}
+int[] x = {3,1,4,1,5,9,2,6};
 
+System.out.println(x[0]); //3 
+System.out.println(x[4]); //5
+System.out.println(x[7]); //6 (last element)
+System.out.println(x[8]); //Error 
+\end{lstlisting}
+\else
 \begin{lstlisting}
 int x[8] = {3,1,4,1,5,9,2,6};
 //alternatively: int x[] = {3,1,4,1,5,9,2,6}; length of array can be omitted as the compiler can derive it from the right hand side
@@ -148,6 +168,38 @@ cout << x[4] << endl; //5
 cout << x[7] << endl; //6 (last element)
 cout << x[8] << endl; //unexpected value (Why?)
 \end{lstlisting}
+\fi
+
+We call the things stored in the array \textbf{elements}. We distinguish different elements using \textbf{index}. The index \textbf{starts from 0}, and ends at $n-1$, where $n$ is the length of the array. The \textbf{length} of the array refers to the maximum number of elements that the array can store, based on the memory allocated when it is \textbf{initialised}. We cannot change the length of the array normally.
+
+\includegraphics[width=12cm]{images/ch2-arrayindex.png}
+\vspace{6mm}
+
+There are two ways of initialising arrays. The first way is to hard-code the elements in the array. The length of the array is inferred by the number of elements given, and it cannot be extended afterwards.
+
+\if\proglang1
+\begin{lstlisting}
+int[] x = {3,1,4,1,5,9,2,6};
+\end{lstlisting}
+\else
+\begin{lstlisting}
+int x[] = {3,1,4,1,5,9,2,6};
+\end{lstlisting}
+\fi
+
+The second way is when you are not quite sure what the elements of the array are yet, but you must still supply the length of the array.
+
+\if\proglang1
+\begin{lstlisting}
+int[] x = new int[8];
+\end{lstlisting}
+\else
+\begin{lstlisting}
+int x[8];
+\end{lstlisting}
+\fi
+
+% Translated to Java end
 
 \section{Loops}
 \subsection{\texttt{for} loops}
@@ -307,18 +359,38 @@ for(int i=0;i<3;i++)
 cout << sum << endl; //45
 \end{lstlisting}
 
-\section{Functions}
+% Translated to Java 
+\section{\if\proglang1 Methods \else ~functions \fi}
 
-Functions let you organize code better and reduce the amount of repeated code. You can define them by:
+\if\proglang1 Methods \else ~functions \fi let you organize code better and reduce the amount of repeated code. You can define them by:
 
+\if\proglang1
+\begin{lstlisting}[language=,basicstyle=\rmfamily]
+public static <return type> <name>(<arguments>){
+    return <return value>;
+}
+\end{lstlisting}
+\else
 \begin{lstlisting}[language=,basicstyle=\rmfamily]
 <return type> function(<arguments>){
     return <return value>;
 }
 \end{lstlisting}
+\fi
 
-For example, this \texttt{fact} function accepts an integer x, and returns another integer.
-
+For example, this \texttt{fact}\if\proglang1 method \else ~function \fi accepts an integer x, and returns another integer.
+\if\proglang1
+\begin{lstlisting}
+public static int fact(int x){
+    int y = 1;
+    for(int i = 1; i <= x; i++){
+        y *= i;
+    }
+    return y;
+}
+//What would happen if we input a negative number?
+\end{lstlisting}
+\else
 \begin{lstlisting}
 int fact(int x){
     int y = 1;
@@ -329,15 +401,51 @@ int fact(int x){
 }
 //What would happen if we input a negative number?
 \end{lstlisting}
+\fi
 
+This is how you use a\if\proglang1 method \else ~function \fi: 
 You could call it by just supplying the argument.
 
+\if\proglang1
+\begin{lstlisting}
+    System.out.println(fact(6)); //720
+\end{lstlisting}
+\else
 \begin{lstlisting}
     cout << fact(6) << endl; //720
 \end{lstlisting}
+\fi
 
-You could use the \texttt{\textbf{void}} keyword to indicate that a function does not have a return value. For \texttt{void} functions, if there is no explicit \texttt{return;} statement, the function will automatically quit at the end of the function. 
+Alternatively, we usually would prefer saving the value returned for later use.
 
+\begin{lstlisting}
+    int x = fact(6); //720 is now stored in x
+\end{lstlisting}
+
+You could use the \texttt{\textbf{void}} keyword to indicate that a\if\proglang1 method \else ~function \fi does not have a return value. For \texttt{void}\if\proglang1 methods \else ~functions \fi, if there is no explicit \texttt{return;} statement, the\if\proglang1 method \else ~function \fi will automatically quit at the end of the\if\proglang1 method \else ~function \fi. 
+
+\if\proglang1
+\begin{lstlisting}
+import java.util.Scanner;
+
+public static void giveComment(int score){
+    if(score >= 70){
+        System.out.println("Good job.");
+    }else if(score >= 40){
+        System.out.println("You got a pass.");
+    }else{
+        System.out.println("You failed.");
+    }
+    //automatically quits here
+}
+
+public static void main(String args[]){
+    Scanner scanner = new Scanner(System.in);  
+    int s = scanner.nextInt();
+    giveComment(s);
+}
+\end{lstlisting}
+\else
 \begin{lstlisting}
 void giveComment(int score){
     if(score >= 70){
@@ -357,8 +465,11 @@ int main(){
     //returning 0 is optional for some C/C++ compilers, it is implied it returns 0 normally
 }
 \end{lstlisting}
+\fi
 
-The main function is just a function with no arguments and an integer as a return value. The main function (specially recognized by the compiler) is the point of entry of the program, the program terminates when the main program returns, returning 0 indicates that there is no error, and returning other integers indicate otherwise.
+The main\if\proglang1 method \else ~function \fi is just a\if\proglang1 method \else ~function \fi with no arguments and an integer as a return value. The main\if\proglang1 method \else ~function \fi (specially recognized by the compiler) is the point of entry of the program, the program terminates when the main program returns, returning 0 indicates that there is no error, and returning other integers indicate otherwise.
 \vspace{6mm}
 
-Note that the giveComment function must be placed in front of the main function, or else the main function could not call the giveComment function as the function has not been defined by the time the compiler reads till the main function. 
+Note that the giveComment\if\proglang1 method \else ~function \fi must be placed in front of the main\if\proglang1 method \else ~function \fi, or else the main\if\proglang1 method \else ~function \fi could not call the giveComment\if\proglang1 method \else ~function \fi as the\if\proglang1 method \else ~function \fi has not been defined by the time the compiler reads till the main\if\proglang1 method \else ~function \fi. 
+
+% Translated to Java end

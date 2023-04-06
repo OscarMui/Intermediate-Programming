@@ -8,7 +8,7 @@ Watching animations of these algorithms is useful in understanding how they work
 
 \section{Linear search}
 
-Linear search returns the location of the leftmost occurrence of the integer when there are duplicates, and returns \textit{n} if the integer is not found.
+Linear search simply searching through the array from left to right, scanning the elements one by one until a match is found. Linear search returns the location of the leftmost occurrence of the integer when there are duplicates, and returns \textit{n} if the integer is not found.
 
 \begin{lstlisting}
 int main(){
@@ -140,7 +140,7 @@ We will imagine that we split the array into three sections, x[0..i) contains al
 We maintain this relationship from start to finish. Initially, we set i=0, j=n, so that the first and the last sections are empty signifying all elements are unchecked. Then we gradually check the elements using binary search (similar to the concept explained in the previous section), until i=j, meaning that all elements are checked. Then we return a value.
 \vspace{6mm}
 
-Which value shall we return? If the value is present, x[0..i) contains all elements that $<$ target, and x[i..n)\footnote{remember i=j when binary search terminates} contains all elements that $>=$ target. 
+Which value shall we return? x[0..i) contains all elements that $<$ target, and x[i..n)\footnote{remember i=j when binary search terminates} contains all elements that $>=$ target. 
 
 If the target is present, it will be at location i. If there are duplicates, the leftmost occurrence will be at location i. If the target is not present. The proper location to insert it is also location i. So i is the correct value to return in all cases. Neat!
 \vspace{6mm}

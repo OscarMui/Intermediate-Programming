@@ -5,6 +5,7 @@
 %load any additional packages
 
 % ---- START OF CUSTOM CONFIGURATION ----
+\def\proglang{0} %1: Java, others C++
 
 \usepackage{amssymb} % unknown
 \usepackage{array} % unknown
@@ -19,6 +20,7 @@
 \usepackage{multirow} % ability to merge rows using \mergerow
 \usepackage{makecell} % ability to have line breaks inside tables
 \usepackage{imakeidx} % add an index for the document
+\usepackage{cleveref} % Create references to different chapters
 \makeindex % add an index for the document
 % configure hyperref, display the contents page as its usual black color
 \hypersetup{ 
@@ -30,11 +32,20 @@
 }
 
 % configure listings
+\if\proglang1
+\lstset{language=Java}
+\else
 \lstset{language=C++}
+\fi
 \lstset{basicstyle=\ttfamily,breaklines=true} %use courier as font, also make sure it skips to another line when the text is too long for one line
 
 \setlength{\parindent}{0pt} % disable indent of first line of each paragraph
 \graphicspath{ {./images/} } % configure graphicx
+
+%  Configure cleveref
+\crefformat{section}{\S#2#1#3} % see manual of cleveref, section 8.2.1
+\crefformat{subsection}{\S#2#1#3}
+\crefformat{subsubsection}{\S#2#1#3}
 
 % ---- END OF CUSTOM CONFIGURATION ----
 
@@ -50,7 +61,7 @@
 
 % \renewcommand{Notes for}{change the default text here if needed}
 \degree{Computer Science \\[1ex] HKOI Training (in C++)}     %the degree
-\degreedate{September 2022}         %the degree date
+\degreedate{April 2023}         %the degree date
 
 %end the preamble and start the document
 \begin{document}

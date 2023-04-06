@@ -1,9 +1,10 @@
 \chapter{Data Types}
 
-You have to specify the type of variables when initializing them in C++. Each variable can only be used to store data of a single type.\footnote{Out of scope: this is what we call a strongly typed language}  
+You have to specify the type of variables when initializing them in C++. Each variable can only be used to store data of a single type.\footnote{Out of scope: this is what we call a strongly typed language} These are also the available types for function arguments and function return values.
 
 \section{Primary data types}
-Primary data types\index{Primary data types} are those that are not composed of other data types.
+\label{sec:primarydtypes}
+\textbf{Primary data types}\index{Primary data types} are those that are not composed of other data types. It is important to distinguish primary data types with other data types (like arrays), as we will see in \cref{sec:passbyref}
 
 Basic knowledge: 1 bit is a single 0 or 1 in memory, 8 bits form 1 byte, we usually discuss memory in terms of bytes instead of bits.
 
@@ -276,6 +277,7 @@ cin >> s3; //The computer did not ask for your input
 cout << s3 << endl; //world
 \end{lstlisting}
 
+\label{sec:cingetline}
 However, sometimes you want to obtain a whole line of text input rather than just a word. You could use \texttt{cin.getline}. It accepts two arguments, first the string variable (the character array you defined), second the maximum amount of characters it should get (you have to set it less than or equal to the size of the chracter array)
 
 \begin{lstlisting}

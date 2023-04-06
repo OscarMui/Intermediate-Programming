@@ -1,34 +1,47 @@
 \chapter{Arrays and Linked Lists}
+% Translated into Java (whole chapter)
 
 We will talk more about arrays and new concepts including linked lists, pointers and time complexity in this chapter.
 
 \section{Arrays in memory}
 
-Let's go back to the example in Chapter 2.
+Let's go back to the example in \cref{sec:arrayintro}.
 
+\if\proglang1
 \begin{lstlisting}
-int x[] = {3,1,4,1,5,9,2,6};
+int[] x = {3,1,4,1,5,9,2,6};
+
+System.out.println(x[0]); //3 
+System.out.println(x[4]); //5
+System.out.println(x[7]); //6 (last element)
+System.out.println(x[8]); //Error 
+\end{lstlisting}
+\else
+\begin{lstlisting}
+int x[8] = {3,1,4,1,5,9,2,6};
+//alternatively: int x[] = {3,1,4,1,5,9,2,6}; length of array can be omitted as the compiler can derive it from the right hand side
 
 cout << x[0] << endl; //3 
 cout << x[4] << endl; //5
 cout << x[7] << endl; //6 (last element)
-cout << x[8] << endl; //unexpected value 
+cout << x[8] << endl; //unexpected value (Why?)
 \end{lstlisting}
+\fi
 
-The reason for \texttt{x[8]} to return an unexpected value rather than an error is pretty interesting. To understand that, you will need to know how arrays are stored in memory, and how array elements are accessed. 
+\if\proglang1 To understand more about arrays, \else The reason for \texttt{x[8]} to return an unexpected value rather than an error is pretty interesting. To understand that, \fi you will need to know how arrays are stored in memory, and how array elements are accessed. 
 
 A \textbf{continuous} memory is allocated for each array. As indicated in the figure.
 
 \includegraphics[width=13cm]{ch5-array.png}
 
-C++ stores the \textbf{base address}\index{base address} of the array x, say at location 2240. Then to obtain \texttt{x[k]}, it will calculate the address that it needs to retrieve by $2240 + k*4$, the $*4$ is there because each integer occupies 4 bytes of memory, the multiplier is different depending on different data types. 
+\if\proglang1 Java \else ~C++ \fi stores the \textbf{base address}\index{base address} of the array x, say at location 2440. Then to obtain \texttt{x[k]}, it will calculate the address that it needs to retrieve by $2440 + k*4$, the $*4$ is there because each integer occupies 4 bytes of memory, the multiplier is different depending on different data types. 
 
-For example, when querying \texttt{x[4]}, we obtained it from address $2240+16 = 2256$. 
+For example, when querying \texttt{x[4]}, we obtained it from address $2440+16 = 2456$. 
 
-So, when querying \texttt{x[8]}, we obtained it from address $2240+32 = 2272$. What is in address 2272? We don't know! It is just a bunch of random 0s and 1s last modified by other programs. 
+So, when querying \texttt{x[8]}, we obtained it from address $2440+32 = 2472$. What is in address 2472? We don't know! It is just a bunch of random 0s and 1s last modified by other programs. 
 \vspace{6mm}
 
-If you run this program multiple times, the result printed is different, this is because the base address allocated for the array by the program is different every time. 
+\if\proglang1 The \else If you run this program multiple times, the result printed is different, this is because the \fi base address allocated for the array by the program is different every time. 
 
 As the location of \texttt{x[8]} is different, it probably stores a different sequence of 0s and 1s. While x[0..7] are the same, because that is what \texttt{int x[8] = \{3,1,4,1,5,9,2,6\};} does, put 3 at base address, put 1 at base address + 4, put 4 at base address + 8 ..., once the base address is allocated.
 
@@ -40,18 +53,32 @@ As the location of \texttt{x[8]} is different, it probably stores a different se
 Don't have time to cover, there should be plenty of resources online on this topic, including mycodeschool's playlist on pointers.
 
 \section{Pointers and arrays}
-
+\label{sec:passbyref}
 \textit{Difficult topic}
 \vspace{6mm}
 
 Although we did not cover pointers in depth, it is important to understand the usage of pointers in manipulating arrays. 
 
-First, we need to understand that there are two ways values are passed by a function call, that is, call by reference\index{call by reference} and call by value\index{call by value}, you will need to be able to distinguish when each type is used.
+First, we need to understand that there are two ways values are passed by a function call, that is, \textbf{call by reference}\index{call by reference} and \textbf{call by value}\index{call by value}, you will need to be able to distinguish when each type is used.
 
 \subsection{Call by value}
 
-Primary data types (those you saw in section 3.1, e.g. \texttt{int}, \texttt{char}, \texttt{float}) are normally called by value, which means that their value is copied when they are passed into another function. Changes made to the variable inside the function will not affect its value in the caller. It is better to demonstrate through an example.
+Primary data types (those you saw in \cref{sec:primarydtypes}, e.g. \texttt{int}, \texttt{char}, \texttt{float}) are normally called by value, which means that their value is copied when they are passed into another function. Changes made to the variable inside the function will not affect its value in the caller. It is better to demonstrate through an example.
 
+\if\proglang1
+\begin{lstlisting}
+public static void change(int a){ //pass by value
+    a += 1;
+    System.out.println("In change: " + a); //In change: 6
+    return;
+}
+public static void main(String args[]){
+    int a = 5;
+    change(a);
+    System.out.println("In main: " + a); //In main: 5
+}
+\end{lstlisting}
+\else
 \begin{lstlisting}
 void change(int a){ //pass by value
     a += 1;
@@ -64,12 +91,28 @@ int main(){
     cout << "In main: " << a << endl; //In main: 5
 }
 \end{lstlisting}
+\fi
 
 As you can see, although \texttt{a} is changed to 6 in the change function, it is still 5 in the main function. 
 \vspace{6mm}
 
 If you would like to actually change the value of \texttt{a}, you could return the new value of a in the function change, so that the main function can update its value accordingly. Like this:
 
+\if\proglang1
+\begin{lstlisting}
+//return the new value of a
+public static int change2(int a){ //STILL pass by value
+    a += 1;
+    System.out.println("In change2: " + a); //In change2: 6
+    return a; //return the modified a by value
+}
+public static void main(){
+    int a = 5;
+    a = change2(a); //change the value of a based on the return value of change2
+    System.out.println("In main: " + a); //In main: 6
+}
+\end{lstlisting}
+\else
 \begin{lstlisting}
 //return the new value of a
 int change2(int a){ //STILL pass by value
@@ -83,11 +126,40 @@ int main(){
     cout << "In main: " << a << endl; //In main: 6
 }
 \end{lstlisting}
+\fi
 
 \subsection{Call by reference}
 
-Arrays (e.g. arrays of \texttt{floats}, \texttt{strings}) are normally called by reference, which means only the reference to the array variable is copied when they are passed into another function, their value is NOT copied (in the case of an array, it would be the base address that is copied). It is a reasonable decision, as arrays could be very large in size. (imagine an array with millions elements) Changes made to the variable inside the function will then affect its value in the caller, because there is only a single copy of the array variable.
+Arrays (e.g. arrays of \texttt{float}s, \texttt{string}s) are normally called by reference, which means only the reference to the array variable is copied when they are passed into another function, their value is NOT copied (in the case of an array, it would be the base address that is copied). It is a reasonable decision, as arrays could be very large in size. (imagine an array with millions elements) Changes made to the variable inside the function will then affect its value in the caller, because there is only a single copy of the array variable.
 
+\if\proglang1
+\begin{lstlisting}
+public static void changeArray(int[] x){ //pass by reference
+    x[2] += 1;
+    
+    //print everything in x, with commas properly placed
+    //In changeArray: 3,1,5,1,5,9,2,6
+    System.out.print("In changeArray: "+x[0]);
+    for(int i = 1; i < 8;  i++){
+        System.out.print("," + x[i]);
+    }
+    System.out.println("");
+    return;
+}
+public static void main(){
+    int[] x = {3,1,4,1,5,9,2,6};
+    changeArray(x);
+    
+    //In main: 3,1,5,1,5,9,2,6
+    System.out.print("In main: "+x[0]);
+    for(int i = 1; i < 8;  i++){
+        System.out.print("," + x[i]);
+    }
+    System.out.println("");
+    return 0;
+}
+\end{lstlisting}
+\else
 \begin{lstlisting}
 void changeArray(int x[]){ //pass by reference
     x[2] += 1;
@@ -114,7 +186,12 @@ int main(){
     return 0;
 }
 \end{lstlisting}
+\fi
 
+As you can see the code for printing the contents of the arrays takes a lot of space, we would omit the code for printing from this point onwards.
+
+\if\proglang1
+\else
 Primary data types can be passed by reference by passing the pointer to that variable instead of the variable instead. As demonstrated by this example below: \footnote{Not recommended, this strategy is specific to C/C++, it is impossible/ harder to do so in other programming languages. It is also difficult to get your mind around the concept}
 
 \begin{lstlisting}
@@ -130,10 +207,23 @@ int main(){
     cout << "In main: " << a << endl; //In main: 6
 }
 \end{lstlisting}
+\fi
 
-However, it is impossible to pass arrays by value. The only way you could do it is by copying the array before passing it to another function, which we will demonstrate below.
+It is impossible to pass arrays by value. The only way you could do it is by copying the array before passing it to another function, which we will demonstrate below.
 
 \subsection{Making copies of arrays}
+
+\if\proglang1
+Suppose I want to make a copy of array \texttt{x}, that sounds easy enough, we can just assign it to another variable with the same type as illustrated below. 
+
+\begin{lstlisting}
+int[] x = {3,1,4,1,5,9,2,6};
+int[] y = x; 
+\end{lstlisting}
+
+This seems okay, except when you try to modify \texttt{y} and you will notice \texttt{x} is modified as well, and vice versa. This is because under the hood, the array variable only stores the base address, the address to the index 0 element of the array, as demonstrated in previous sections. That means, the array variable is actually just a pointer to whatever data type it stores! 
+
+\else
 
 First of all, you have to make a realization that arrays can't be copied normally like primary data types.
 
@@ -143,9 +233,22 @@ int y[] = x; //SYNTAX ERROR
 \end{lstlisting}
 
 However, you can set y to be of type \texttt{int *}, a pointer to an integer, and it would work. This is because under the hood, the array variable only stores the base address, the address to the index 0 element of the array, as demonstrated in previous sections. That means, the array variable is actually just a pointer to whatever data type it stores! 
+\fi
 
 In the example below, when x is 'copied' to y, the array is not copied, but just the reference. Both x and y are pointing to the same array, hence changes to x affects y, and vice versa. 
 
+\if\proglang1
+\begin{lstlisting}
+int[] x = {3,1,4,1,5,9,2,6};
+int[] y = x;
+
+y[2] = 5; //we modified y, but it also affects x
+
+//In x: 3,1,5,1,5,9,2,6 
+//In y: 3,1,5,1,5,9,2,6 
+//Printing code omitted
+\end{lstlisting}
+\else
 \begin{lstlisting}
 int x[] = {3,1,4,1,5,9,2,6};
 int* y = x; //no error
@@ -153,15 +256,29 @@ int* y = x; //no error
 y[2] = 5; //we modified y, but it also affects x
 
 //In x: 3,1,5,1,5,9,2,6 
-cout << "In x: " << x[0];
-for(int i = 1; i < 8;  i++){
-    cout << "," << x[i];
-}
-cout << endl;
+//In y: 3,1,5,1,5,9,2,6 
+//Printing code omitted
 \end{lstlisting}
+\fi
 
+\if\proglang1
 If you really want to make a copy of the array, there are no smarter ways to do so than a for loop.
 
+\begin{lstlisting}
+int[] x = {3,1,4,1,5,9,2,6};
+int[] y = new int[8]; 
+for(int i=0;i<8;i++){ //copy element by element
+    y[i] = x[i];
+}
+
+//try alter y to see if x is altered
+y[2] = 5; 
+
+//In x: 3,1,4,1,5,9,2,6
+//In y: 3,1,5,1,5,9,2,6
+//Printing code omitted
+\end{lstlisting}
+\else
 \begin{lstlisting}
 int x[] = {3,1,4,1,5,9,2,6};
 int y[8];
@@ -171,18 +288,10 @@ for(int i=0;i<8;i++){ //copy element by element
 //try alter y to see if x is altered
 y[2] = 5;
 //In x: 3,1,4,1,5,9,2,6
-cout << "In x: " << x[0];
-for(int i = 1; i < 8;  i++){
-    cout << "," << x[i];
-}
-cout << endl;
 //In y: 3,1,5,1,5,9,2,6
-cout << "In y: " << y[0];
-for(int i = 1; i < 8;  i++){
-    cout << "," << y[i];
-}
-cout << endl;
+//Printing code omitted
 \end{lstlisting}
+\fi
 
 \section{Linked lists}
 

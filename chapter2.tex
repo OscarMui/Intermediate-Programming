@@ -11,93 +11,6 @@ Here are some basic\if\proglang1 Java \else ~C++ \fi knowledge, I bet you have s
 
 % Translated to Java end 
 
-\section{Further resources (Ch 2-3)}
-\href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{Bucky's C++ Programming Tutorial}\footnote{Link: \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{https://www.youtube.com/watch?v=tvC1WCdV1XU\&list=PLAE85DE8440AA6B83}} (a YouTube playlist) covers most things that you need to know about C++, and also most of the things in this chapter. You only need to watch the first 20-30 videos, as it goes too deep in the later episodes.
-
-\section{Practicing at home}
-Practicing is very important. For example, one of the things I would do back then is to remove the one or two lines that I didn't understand in the materials, and see how they affected the program by printing out the values of the variables at different times. 
-
-The two IDEs\footnote{Integrated Development Environment, in short a text editor with tools to make programming easier} I recommend are Code::Blocks and Visual Studio Code. Either one would work.
-
-\subsection*{Code::Blocks}
-
-It is simpler to use, suitable for beginners, but can only be used to write C/C++ code. \href{https://www.codeblocks.org/}{Click here for the official website.}\footnote{Link: \href{https://www.codeblocks.org/}{https://www.codeblocks.org/}}
-
-The first video of \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{Bucky's C++ Programming Tutorial}\footnote{Link: \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{https://www.youtube.com/watch?v=tvC1WCdV1XU\&list=PLAE85DE8440AA6B83}} covers how to use it in detail.
-
-\subsection*{VS Code}
-
-Suitable for students who have experience in using the command line. It is lightweight and works well with other languages. \href{https://code.visualstudio.com/}{Click here for the official website.}\footnote{Link: \href{https://code.visualstudio.com/}{https://code.visualstudio.com/}}
-
-You will have to compile and run the C++ program in the command line (make sure you installed the \href{https://www.youtube.com/watch?v=8CNRX1Bk5sY}{GNG GCC compiler through MinGW})\footnote{Installation tutorial: \href{https://www.youtube.com/watch?v=8CNRX1Bk5sY}{https://www.youtube.com/watch?v=8CNRX1Bk5sY}}.
-
-The commands needed for Git Bash (for Windows users) and the MacOS Terminal are as follows: (may be different for other tools)
-\vspace{6mm}
-
-\texttt{g++ -o <executable> <source code>}
-
-\texttt{./<executable>}
-\vspace{6mm}
-
-For example,
-
-\texttt{g++ -o test test.cpp}
-
-\texttt{./test}
-
-
-\section{Structure of a C++ program}
-\begin{lstlisting}
-//First include the libraries that you are going to use
-#include <iostream> 
-
-//A weird line of code that you have to remember every time you write a C++ program.
-using namespace std;
-
-int main(){
-    cout << "Hello world" << endl;
-    return 0;
-}
-\end{lstlisting}
-
-The main function is the point of entry of the program.
-
-You need to add a semicolon at the end of every statement or else the compiler will shout at you. 
-
-\section{Comparison with C}
-
-At first sight, C and C++ programs look very different.
-
-For example, when you print the same thing above using C, you will do:
-
-\begin{lstlisting}
-//C
-#include <stdio.h> 
-int main(){
-    printf("Hello world\n");
-}
-\end{lstlisting}
-
-To our surprise, we can also do:
-
-\begin{lstlisting}
-//C++
-#include <cstdio>
-using namespace std;
-int main(){
-    printf("Hello world\n");
-}
-\end{lstlisting}
-
-For those of you who have learnt C before, I have a good news for you, that your effort is not wasted, as \textbf{you can use all functionality in C program in C++}\footnote{Out of scope: Well, C++ is not exactly a superset of C because there are a small amount of things that can be done by C but not C++, but those things are not a concern at all for students like us}. You can include all C libraries by prepending the name with a 'c', and removing the \texttt{.h}. For instance, \texttt{cmath} and \texttt{ctime}.
-\vspace{6mm}
-
-It is wise to learn both \texttt{cstdio} and \texttt{iostream}, and to use the appropriate one on suitable occasions.
-
-\texttt{printf} is more superior than \texttt{cout} when you want to print some floating point values with a certain number of decimal places. (using \texttt{printf("\%.2f",num);})
-
-While it is easier to get input from a whole line using \texttt{cin.getline} (more in \cref{sec:cingetline}).
-
 \section{Conditionals}
 \subsection{\texttt{if} statements}
 
@@ -360,7 +273,7 @@ cout << sum << endl; //45
 \end{lstlisting}
 
 % Translated to Java 
-\section{\if\proglang1 Methods \else ~functions \fi}
+\section{\if\proglang1 Methods \else ~Functions \fi}
 \label{sec:functions}
 
 \if\proglang1 Methods \else ~functions \fi let you organize code better and reduce the amount of repeated code. You can define them by:

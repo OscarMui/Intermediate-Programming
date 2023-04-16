@@ -6,6 +6,7 @@
 
 % ---- START OF CUSTOM CONFIGURATION ----
 \def\proglang{0} %1: Java, others C++
+\def\invariant{0} %1: include contents on Invariants, others otherwise (for chapter 7 only)
 
 \usepackage{amssymb} % unknown
 \usepackage{array} % unknown
@@ -86,6 +87,7 @@
 \end{romanpages}            % end roman page numbering
 
 %now include the files of latex for each of the chapters etc
+% \include{chapter0}
 \include{chapter1}
 \include{chapter2}
 \include{chapter3}
@@ -109,5 +111,5 @@
 \bibliography{refs}        %use a bibtex bibliography file refs.bib
 \bibliographystyle{plain}  %use the plain bibliography style
 
-\printindex
+% \printindex
 \end{document}

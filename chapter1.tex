@@ -1,42 +1,94 @@
-\chapter{Hong Kong Olympiad in Informatics}
+\chapter{Setting Up}
 
-Even though the knowledge you will take away by joining the competition is more important than specific skills related to the competition, I think it is still worth it to mention the key points.
+Here are some instructions on using C++ on your own machine.
 
-\section{About the competition}
-\textit{IMPORTANT: rules of HKOI might have changed over the years, please refer to the \href{https://hkoi.org/en/}{HKOI website}\footnote{Link: \href{https://hkoi.org/en/}{https://hkoi.org/en/}} for the latest rules.}
+\section{Further resources (Ch 1-3)}
+\href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{Bucky's C++ Programming Tutorial}\footnote{Link: \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{https://www.youtube.com/watch?v=tvC1WCdV1XU\&list=PLAE85DE8440AA6B83}} (a YouTube playlist) covers most things that you need to know about C++, and also most of the things in this chapter. You only need to watch the first 20-30 videos, as it goes too deep in the later episodes.
+
+\section{Practicing at home}
+Practicing is very important. For example, one of the things I would do back then is to remove the one or two lines that I didn't understand in the materials, and see how they affected the program by printing out the values of the variables at different times. 
+
+The two IDEs\footnote{Integrated Development Environment, in short a text editor with tools to make programming easier} I recommend are Code::Blocks and Visual Studio Code. Either one would work.
+
+\subsection*{Code::Blocks}
+
+It is simpler to use, suitable for beginners, but can only be used to write C/C++ code. \href{https://www.codeblocks.org/}{Click here for the official website.}\footnote{Link: \href{https://www.codeblocks.org/}{https://www.codeblocks.org/}}
+
+The first video of \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{Bucky's C++ Programming Tutorial}\footnote{Link: \href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{https://www.youtube.com/watch?v=tvC1WCdV1XU\&list=PLAE85DE8440AA6B83}} covers how to use it in detail.
+
+\subsection*{VS Code}
+
+Suitable for students who have experience in using the command line. It is lightweight and works well with other languages. \href{https://code.visualstudio.com/}{Click here for the official website.}\footnote{Link: \href{https://code.visualstudio.com/}{https://code.visualstudio.com/}}
+
+You will have to compile and run the C++ program in the command line (make sure you installed the \href{https://www.youtube.com/watch?v=8CNRX1Bk5sY}{GNG GCC compiler through MinGW})\footnote{Installation tutorial: \href{https://www.youtube.com/watch?v=8CNRX1Bk5sY}{https://www.youtube.com/watch?v=8CNRX1Bk5sY}}.
+
+The commands needed for Git Bash (for Windows users) and the MacOS Terminal are as follows: (may be different for other tools)
 \vspace{6mm}
 
-The competition is split into Junior Group and Senior Group, you would need to be born after a certain date in order to join the Junior Group. (usually S5 students or above have to join the Senior Group, but some lucky ones are young enough for the Junior Group, seize this opportunity if this is your case)
+\texttt{g++ -o <executable> <source code>}
+
+\texttt{./<executable>}
 \vspace{6mm}
 
-The competition consists of two parts, heats and finals.
+For example,
+
+\texttt{g++ -o test test.cpp}
+
+\texttt{./test}
+
+
+\section{Structure of a C++ program}
+\begin{lstlisting}
+//First include the libraries that you are going to use
+#include <iostream> 
+
+//A weird line of code that you have to remember every time you write a C++ program.
+using namespace std;
+
+int main(){
+    cout << "Hello world" << endl;
+    return 0;
+}
+\end{lstlisting}
+
+The main function is the point of entry of the program.
+
+You need to add a semicolon at the end of every statement or else the compiler will shout at you. 
+
+\section{Comparison with C}
+
+At first sight, C and C++ programs look very different.
+
+For example, when you print the same thing above using C, you will do:
+
+\begin{lstlisting}
+//C
+#include <stdio.h> 
+int main(){
+    printf("Hello world\n");
+}
+\end{lstlisting}
+
+To our surprise, we can also do:
+
+\begin{lstlisting}
+//C++
+#include <cstdio>
+using namespace std;
+int main(){
+    printf("Hello world\n");
+}
+\end{lstlisting}
+
+For those of you who have learnt C before, I have a good news for you, that your effort is not wasted, as \textbf{you can use all functionality in C program in C++}\footnote{Out of scope: Well, C++ is not exactly a superset of C because there are a small amount of things that can be done by C but not C++, but those things are not a concern at all for students like us}. You can include all C libraries by prepending the name with a 'c', and removing the \texttt{.h}. For instance, \texttt{cmath} and \texttt{ctime}.
 \vspace{6mm}
 
-The heat event is usually held in November, a 1.5-hour written test. Junior Group contestants are given 5 True or False questions, 20 MC questions (each worth 1 mark each), and 20 marks worth of Short Questions. Senior Group contestants are given 25 MC questions (each worth 1 mark each), and 20 marks worth of Short Questions. Making the total score 45. 
+It is wise to learn both \texttt{cstdio} and \texttt{iostream}, and to use the appropriate one on suitable occasions.
 
-There are only two grades you can get in the heats, that is, PASS or FAIL. The mark you get in heats will not affect your award in the finals, The passing mark fluctuates so that around 100 contestants enter the finals. The passing mark of previous years can be found in the \href{https://hkoi.org/en/past-problems/}{official solution of the heat event}.\footnote{Link: \href{https://hkoi.org/en/past-problems/}{https://hkoi.org/en/past-problems/}}
-\vspace{6mm}
+\texttt{printf} is more superior than \texttt{cout} when you want to print some floating point values with a certain number of decimal places. (using \texttt{printf("\%.2f",num);})
 
-The final event is usually held in December, a 3-hour practical test. Where you write code to solve 4 problems, each worth 100 marks, bringing the total to 400. Prizes will be given based on the total mark you get out of 400.
-\vspace{6mm}
+While it is easier to get input from a whole line using \texttt{cin.getline} (more in \cref{sec:cingetline}).
 
-Regardless of your final result, this is a good experience and a good opportunity to learn more about computing, I hope all of you would enjoy it.
+\section{A note on the choice of programming language}
 
-\section{General tips on heats}
-\begin{enumerate}
-    \item Don't be too stressed out, it is fine as long as you get a higher score than the cutoff.
-    \item Answer every MC question, make guesses if you are not sure.
-    \item Remember basic C++ syntax so that you know the shortest way to write the code needed for the short questions, as there are character limits imposed on your answers. (see the answer sheet of the heat event)
-\end{enumerate}
-
-\section{General tips on finals}
-\begin{enumerate}
-    \item Try some past questions on the \textit{HKOI Online Judge}\footnote{It is a paid service, only allowing purchase through your school. You need to ask your school to give you access} to get a feel of what it feels like coding for three hours straight.
-    \item Focus on the first few subtasks of each question. They are usually easier, and you will be able to at least get some of the marks.
-    \item Note that you will only get the marks for the subtask when you pass ALL the test cases.
-    \item Remember basic C++ syntax to reduce thinking time.
-\end{enumerate}
-
-\section{Choice of programming language}
-
-The best programming language for both the heats and finals in my opinion is C++. C++ should be the only language available in the heats starting from year 2022/23. However, you could use other languages like Python in the finals (as long it is listed in the HKOI rules) if you feel more comfortable with it, but you will have to bare the risk that they are only a second class language, meaning that it is not guaranteed that you can get full mark using them (e.g. Python generally runs a bit slower than C++). Though for most of us aiming for the first few subtasks it should be fine.
+I would like to stress that the choice of programming language is an arbitary one (that is helpful for those doing the HKOI competition). Most of the concepts in this piece of notes apply to other programming languages such as Java, C and Python.

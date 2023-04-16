@@ -6,7 +6,7 @@ You have to specify the type of variables when initializing them in C++. Each va
 \label{sec:primarydtypes}
 \textbf{Primary data types}\index{Primary data types} are those that are not composed of other data types. It is important to distinguish primary data types with other data types (like arrays), as we will see in \cref{sec:passbyref}
 
-Basic knowledge: 1 bit is a single 0 or 1 in memory, 8 bits form 1 byte, we usually discuss memory in terms of bytes instead of bits.
+Some basic knowledge on bits and bytes $-$ 1 bit is a single 0 or 1 in memory, 8 bits form 1 byte, we usually discuss memory in terms of bytes instead of bits.
 
 \begin{table}[h]
     \centering
@@ -87,7 +87,7 @@ These are variants of integers. They are of less importance.\footnote{Reference:
 
 \section{Integer overflow\index{overflow}}
 
-As you saw in the last section, integers have a limited range. Overflow occurs when the value we want to store is out of the range that the data type can represent. 
+As you saw in \cref{sec:primarydtypes}, integers have a limited range. Overflow occurs when the value we want to store is out of the range that the data type can represent. 
 
 For integers (\texttt{int}, \texttt{unsigned}, \texttt{short}, \texttt{long long}), the value it represents will go to the other end of the range when they overflow.\footnote{Reason behind out of scope: requires understanding of two's compliment}. 
 

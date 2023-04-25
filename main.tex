@@ -61,7 +61,7 @@
 \college{University College}  %your college
 
 % \renewcommand{Notes for}{change the default text here if needed}
-\degree{Computer Science \\[1ex] HKOI Training (in C++)}     %the degree
+\degree{Computer Science \\[1ex] (in C++)}     %the degree
 \degreedate{April 2023}         %the degree date
 
 %end the preamble and start the document
@@ -77,11 +77,14 @@
 
 
 \maketitle                  % create a title page from the preamble info
+
+\begin{romanpages}          % start roman page numbering
+
 \include{dedication}        % include a dedication.tex file
 \include{acknowlegements}   % include an acknowledgements.tex file
 \include{abstract}          % include the abstract
 
-\begin{romanpages}          % start roman page numbering
+
 \tableofcontents            % generate and include a table of contents
 % \listoffigures              % generate and include a list of figures
 \end{romanpages}            % end roman page numbering

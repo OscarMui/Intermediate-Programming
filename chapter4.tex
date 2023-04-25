@@ -41,6 +41,16 @@ int fact(int x){
 
 Let's analyse the recursive version of the function. Because it is simple\footnote{Out of scope: I call a function "simple" in this chapter if it does not invoke any side effects, such as printing something on the screen or accessing (read or write) the value of global variables. The definition is intentionally hidden for easier understanding.} we can use an equational method to analyse the function. For example, we can analyse the return value of \texttt{fact(4)} as follows:
 
+\begin{lstlisting}
+fact(4)
+= 4*fact(3)         (by the else clause of fact)
+= 4*3*fact(2)       (by the else clause of fact)
+= 4*3*2*fact(1)     (by the else clause of fact)
+= 4*3*2*1*fact(0)   (by the else clause of fact)
+= 4*3*2*1*1         (by the if clause of fact)
+= 24                (just arithmetic)
+\end{lstlisting}
+
 \textit{To think about: What happens if we enter a negative number to both functions?}
 
 \section{Example: Exponentiation}
@@ -49,7 +59,7 @@ Here is a recursive function to calculate $x^n$. \textit{Exercise: Implement a n
 
 \begin{lstlisting}
 int exp(int x, int n){
-    if(n == 0) return 0; //x^0 = 1
+    if(n == 0) return 1; //x^0 = 1
     else return x*exp(x,n-1); //x^n = x*x^(n-1)
 }
 \end{lstlisting}
@@ -104,6 +114,8 @@ int fastExp(int x, int n){
         //x^n = x*(x*x)^((n-1)/2) for odd n (n/2 is automatically rounded down in C++)
 }
 \end{lstlisting}
+
+\newpage
 
 \section{Call stack}
 

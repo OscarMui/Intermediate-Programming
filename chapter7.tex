@@ -108,9 +108,34 @@ int linearSearch(int x[], int n, int target){
 \textit{Exercise: Can we change the order of the tests of the while loop for \texttt{linearSearch2}? How about \texttt{linearSearch}?}
 \vspace{6mm}
 
-The worst case of \texttt{linearSearch2,3,4} and \texttt{linearSearch} occurs when the target is not found or the target is the last element, the while loop is run \textit{n} times to search through the whole array before returning. Therefore the worst case time complexity is still $O(n)$.
+The worst case of \texttt{linearSearch2,3,4} and \texttt{linearSearch} occurs when the target is not found or the target is the last element, the while loop is run \textit{n} times to search through the whole array before returning. Therefore the worst case time complexity is still $O(n)$.\footnote{Reference: Grau, B. C., Pitt-Francis, J., Spivey, M., \& Lowe, G. (2023). \textit{Example: string searching.}. Imperative Programming Parts 1 and 2.}
 
+\if\invariant1
 
+\subsection*{Invariant}
+
+We can write an invariant for \texttt{linearSearch}.
+
+\begin{center}
+    \textit{\textbf{Invariant:}\hspace{6mm} target is not found in $A[0..i)$}
+\end{center}
+
+We will show that maintain this invariant from start to finish. 
+\vspace{6mm}
+
+\textbf{Initialisation:} Initially, we set i=0. A[0..0) is equal to an empty array. As anything cannot be found inside an empty array, invariant holds trivially.
+\vspace{6mm}
+
+\textbf{Maintenance:} The loop carries on meaning that $x[i]$ is not the target, we can easily extend our invariant so that it is now target is not found in $A[0..i+1)$ i.e. target is not found in $A[0.._{new}i)$
+\vspace{6mm}
+
+\textbf{Termination:} Termination is non-trivial, we have to separate our discussion into two cases, depending on which condition no longer holds leading to the termination of the loop.
+
+\textit{Case 1:} $i=n$, by the invariant, target is not found in $A[0..n)$, meaning that the target is not found in the whole array, we should return $n$ by the specification of linear search, which is inline with what we are returning.
+
+\textit{Case 2:} target $ = x[i]$. Target is found! But before we are too thrilled and decided to return $i$ immediately, we need to think twice whether $x[i]$ is the leftmost occurrence of the target. Luckily, our invariant tells us that the target is not found in $A[0..i)$, reassuring us that $A[i]$ is indeed the leftmost occurance of the target.\footnote{Reference: Grau, B. C., Pitt-Francis, J., Spivey, M., \& Lowe, G. (2023). \textit{Invariants}. Imperative Programming Parts 1 and 2.}
+
+\fi
 \pagebreak
 
 \section{Binary search}
@@ -282,6 +307,7 @@ It is a good idea to use invariants to proof that our binary search code is corr
 \end{center}
 
 We will show that maintain this invariant from start to finish. 
+\vspace{6mm}
 
 \textbf{Initialisation:} Initially, we set i=0, j=n, so that the first and the last sections are empty, hence satisfying the invariant trivially. It also represents that all elements are unchecked. Then we gradually check the elements.
 \vspace{6mm}
@@ -295,7 +321,7 @@ We will show that maintain this invariant from start to finish.
 
 \textbf{Termination:} We stop when i=j, meaning that all elements are checked. Then we return a value. x[0..i) contains all elements that $<$ target, and x[i..n)\footnote{remember i=j when binary search terminates} contains all elements that $>=$ target by the invariant. 
 
-If the target is present, the return value should be at location i. If there are duplicates, the leftmost occurrence will be at location i. If the target is not present. The proper location to insert it is also location i. So i is the correct value to return in all cases. Neat!
+If the target is present, the return value should be at location i. If there are duplicates, the leftmost occurrence will be at location i. If the target is not present. The proper location to insert it is also location i. So i is the correct value to return in all cases. Neat!\footnote{Reference: Grau, B. C., Pitt-Francis, J., Spivey, M., \& Lowe, G. (2023). \textit{Binary Search}. Imperative Programming Parts 1 and 2.}
 \vspace{6mm}
 
 \fi

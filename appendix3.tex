@@ -1,0 +1,32 @@
+\chapter{A Note to C Programmers}
+
+At first sight, C and C++ programs look very different. 
+
+For example, when you print the same thing above using C, you will do:
+
+\begin{lstlisting}
+//C
+#include <stdio.h> 
+int main(){
+    printf("Hello world\n");
+}
+\end{lstlisting}
+
+To our surprise, we can also do:
+
+\begin{lstlisting}
+//C++
+#include <cstdio>
+using namespace std;
+int main(){
+    printf("Hello world\n");
+}
+\end{lstlisting}
+
+For those of you who have learnt C before, I have a good news for you, that your effort is not wasted, as \textbf{you can use all functionality in C program in C++}\footnote{Out of scope: Well, C++ is not exactly a superset of C because there are a small amount of things that can be done by C but not C++, but those things are not a concern at all for students like us}. You can include all C libraries by prepending the name with a 'c', and removing the \texttt{.h}. For instance, \texttt{cmath} and \texttt{ctime}.
+
+It is wise to learn both \texttt{cstdio} and \texttt{iostream}, and to use the appropriate one on suitable occasions in competitive programming competitions like HKOI.
+
+\texttt{printf} is more superior than \texttt{cout} when you want to print some floating point values with a certain number of decimal places. (using \texttt{printf("\%.2f",num);})
+
+While it is easier to get input from a whole line using \texttt{cin.getline} (more in \cref{sec:cingetline}).

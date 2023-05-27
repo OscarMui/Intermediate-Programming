@@ -103,15 +103,16 @@
     { \Huge {\bfseries {\@title}} \par}
 {\large \vspace*{40mm} {\logo \par} \vspace*{25mm}}
     {{\Large \@author} \par}
-{\large \vspace*{1ex}
+{\large 
+    %\vspace*{1ex}
     {{\@college} \par}
-\vspace*{1ex}
+%\vspace*{1ex}
     {University of Oxford \par}
 \vspace*{25mm}
     {{\submittedtext} \par}
-\vspace*{1ex}
+% \vspace*{1ex}
     {\it {\@degree} \par}
-\vspace*{2ex}
+% \vspace*{2ex}
     {\@degreedate}}
   \end{center}
   \null\vfill

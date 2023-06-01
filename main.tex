@@ -7,6 +7,7 @@
 % ---- START OF CUSTOM CONFIGURATION ----
 \def\proglang{0} %1: Java, others C++
 \def\invariant{1} %1: include contents on Invariants, others otherwise (for chapter 7 only)
+\def\aians{0} %1: contains answer to questions given by ChatGPT
 
 \usepackage{amssymb} % unknown
 \usepackage{array} % unknown
@@ -26,6 +27,15 @@
 \usepackage{imakeidx} % add an index for the document
 \usepackage{cleveref} % Create references to different chapters
 \usepackage{parskip} % Adding space between paragraphs without affecting other aspects like table of contents, also removes paragraph indents
+\usepackage{endnotes} % For displaying solutions
+
+% Configure solutions
+% \def\enotesize{\normalsize}
+% \def\makeenmark{\relax}
+% \def\notesname{Solutions}
+% \def\answer#1{\endnotetext{#1}}
+% \def\theanswers{\theendnotes \medskip}
+
 \makeindex % add an index for the document
 % configure hyperref, display the contents page as its usual black color
 \hypersetup{ 
@@ -63,6 +73,9 @@
 \pagestyle{myheadings}
 \markright{O.M. - Intermediate Programming}
 
+% custom environments and comments
+\input{envs}
+
 % ---- END OF CUSTOM CONFIGURATION ----
 
 %input macros (i.e. write your own macros file called mymacros.tex 
@@ -76,8 +89,10 @@
 \college{University College}  %your college
 
 % \renewcommand{Notes for}{change the default text here if needed}
-\degree{Computer Science \\[1ex] (in C++)}     %the degree
-\degreedate{April 2023}         %the degree date
+\degree{Computer Science \\[1ex] Second Edition (in C++)}     %the degree
+\degreedate{August 2023}         %the degree date
+
+% \includeonly{chapter1,chapter1ex,solutions}
 
 %end the preamble and start the document
 \begin{document}
@@ -89,7 +104,6 @@
 %set the number of sectioning levels that get number and appear in the contents
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
-
 
 \maketitle                  % create a title page from the preamble info
 
@@ -107,22 +121,30 @@
 %now include the files of latex for each of the chapters etc
 \include{chapter0}
 \include{chapter1}
-\include{ex1}
+\include{chapter1ex}
 \include{chapter2}
+\include{chapter2ex}
 \include{chapter3}
+\include{chapter3ex}
 \include{chapter4}
+\include{chapter4ex}
 \include{chapter5}
+\include{chapter5ex}
 \include{chapter6}
+\include{chapter6ex}
 \include{chapter7}
+\include{chapter7ex}
 \include{chapter8}
+\include{chapter8ex}
 \include{chapter9}
 \include{conclusions}
 
 %now enable appendix numbering format and include any appendices
 \appendix
-\include{appendix1}
-\include{appendix2}
-\include{appendix3}
+\include{zappendix1}
+\include{zappendix2}
+\include{zappendix3}
+\include{solutions}
 
 %next line adds the Bibliography to the contents page
 \addcontentsline{toc}{chapter}{References}

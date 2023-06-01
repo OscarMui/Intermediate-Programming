@@ -1,0 +1,34 @@
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{questions}
+
+% TODO: HKOI 2022 SENIOR Q9
+
+\miquestion Given an array a[100] of 100 distinct integers. After running the program segment below,
+which of the following statements must be true? \footnotecite{hkoi:2022hs}
+
+\begin{lstlisting}
+for (i = 0; i <= 99; i++)
+    for (j = 0; j <= 99; j++)
+        if (a[i] < a[j]) {
+            temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+        }
+\end{lstlisting}
+
+\begin{multiplechoice}
+    \item The array is sorted in ascending order
+    \item The array is sorted in descending order
+    \item \code{a[0]} is the largest element of the array
+    \item The array is reversed
+\end{multiplechoice}
+
+\label{q:hkoi:2022hs:q10}
+
+\answer{
+    \ref{q:hkoi:2022hs:q10} A\\\\
+    This algorithm is a non-standard insertion sort implementation. The subarray \code{a[0]...a[i]} must be sorted in ascending order after the i-th iteration.
+}
+\end{questions}

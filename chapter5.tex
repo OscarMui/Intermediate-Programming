@@ -1,6 +1,7 @@
 \chapter{Arrays and Linked Lists}
 % Translated into Java (whole chapter)
 
+\label{sec:arraychap}
 We will talk more about arrays and new concepts including linked lists, pointers and time complexity in this chapter.
 
 \section{Arrays in memory}
@@ -39,7 +40,7 @@ A \textbf{continuous} memory is allocated for each array. As indicated in the fi
 For example, when querying \texttt{x[4]}, we obtained it from address $2440+16 = 2456$. 
 
 So, when querying \texttt{x[8]}, we obtained it from address $2440+32 = 2472$. What is in address 2472? We don't know! It is just a bunch of random 0s and 1s last modified by other programs. 
-\vspace{6mm}
+
 
 \if\proglang1 The \else If you run this program multiple times, the result printed is different, this is because the \fi base address allocated for the array by the program is different every time. 
 
@@ -48,14 +49,14 @@ As the location of \texttt{x[8]} is different, it probably stores a different se
 \section{Pointers}
 
 \textit{Of less importance, difficult topic}
-\vspace{6mm}
+
 
 Don't have time to cover, there should be plenty of resources online on this topic, including mycodeschool's playlist on pointers.
 
 \section{Pointers and arrays}
 \label{sec:passbyref}
 \textit{Difficult topic}
-\vspace{6mm}
+
 
 Although we did not cover pointers in depth, it is important to understand the usage of pointers in manipulating arrays. 
 
@@ -94,7 +95,7 @@ int main(){
 \fi
 
 As you can see, although \texttt{a} is changed to 6 in the change function, it is still 5 in the main function. 
-\vspace{6mm}
+
 
 If you would like to actually change the value of \texttt{a}, you could return the new value of a in the function change, so that the main function can update its value accordingly. Like this:
 

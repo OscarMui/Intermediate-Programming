@@ -43,7 +43,7 @@ Bubble sort swaps the places of two adjacent integers when it realizes they are 
 \pagebreak
 
 At the \textit{i}th iteration of the outer loop, the last \textit{i} elements of the array are put at their sorted location. To guarantee the array is sorted, the inner loop is run \textit{n} times.
-\vspace{6mm}
+
 
 C++: (\textit{Exercise: Try to re-implement yourself.})
 \begin{lstlisting}
@@ -61,7 +61,7 @@ void bsort(int x[], int n){
 \end{lstlisting}
 
 Time complexity: $O(n^2)$ comparisons
-\vspace{6mm}
+
 
 There are \textit{n} steps, each step involves checking and swapping data from start to finish, taking time proportional to \textit{n} (in the worst case).
 
@@ -111,7 +111,7 @@ void ssort(int x[], int n){
 \end{lstlisting}
 
 Time complexity: $O(n^2)$ comparisons
-\vspace{6mm}
+
 
 There are \textit{n} steps, each step involves finding the minimum value, taking time proportional to \textit{n}.
 
@@ -138,7 +138,7 @@ Insertion sort assumes the leftmost element is a sorted array, then slowly adds 
 %     }
 %     x[j] = v
 % \end{lstlisting}
-% \vspace{6mm}
+% 
 \pagebreak
 
 C++: (\textit{Exercise: Try to re-implement yourself.})
@@ -157,7 +157,7 @@ void isort(int x[], int n){
 \end{lstlisting}
 
 Time complexity: $O(n^2)$ comparisons
-\vspace{6mm}
+
 
 There are \textit{n} steps, each step involves finding the correct location to insert the value concerned, taking time proportional to \textit{n}.
 
@@ -166,7 +166,7 @@ There are \textit{n} steps, each step involves finding the correct location to i
 \section{Merge sort}
 
 \textit{Difficult topic}
-\vspace{6mm}
+
 
 Merge sort first splits the array repeatedly until all arrays are of length 1, where they are sorted without any actions. Then it merges back them two by two in order, eventually we get back the whole array in sorted order.
 
@@ -187,7 +187,7 @@ Merge sort first splits the array repeatedly until all arrays are of length 1, w
 %     | head a <= head b : [head a] ++ merge(tail a, b)
 %     | else: [head b] ++ merge(a, tail b)
 % \end{lstlisting}
-% \vspace{6mm}
+% 
 
 C++: (\textit{Exercise: Try to re-implement yourself.})
 
@@ -247,7 +247,7 @@ void msort(int x[], int start, int end){
 \end{lstlisting}
 
 Time complexity: $O(n\log n)$ comparisons
-\vspace{6mm}
+
 
 There are $\log_2 n$ steps, each step involves function \textit{merge}, taking time proportional to \textit{n}.
 
@@ -277,7 +277,7 @@ Of course you won't be able to understand the details of the code, but what I wa
 \section{Quicksort}
 
 \textit{Of less importance, difficult topic}
-\vspace{6mm}
+
 
 Don't have time to cover, there should be plenty of resources online on this topic.
 
@@ -329,7 +329,7 @@ Don't have time to cover, there should be plenty of resources online on this top
 \section{Counting sort}
 
 \textit{Of less importance}
-\vspace{6mm}
+
 
 Don't have time to cover, there should be plenty of resources online on this topic.
 
@@ -366,6 +366,6 @@ Don't have time to cover, there should be plenty of resources online on this top
 \end{table}
 
 Merge sort and quicksort both have a time complexity of $O(n\log n)$, without significant disadvantages. Hence they are used most often. 
-\vspace{6mm}
+
 
 I hope you enjoyed the burst in knowledge, and if you are one of the contestants in the coming HKOI or other programming competitions, I also wish you all the best.

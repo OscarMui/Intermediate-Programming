@@ -1,0 +1,53 @@
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+
+\begin{questions}
+
+\miquestion What is the output of the following program? \footnotecite{hkoi:2022hs}
+\begin{lstlisting}
+int n, i, x;
+string s = "hkoi.org";
+int main() {
+    n = strlen(s);
+    x = 0;
+    for (i = 0; i < n; i++)
+        if (s[i] != s[n - i - 1]) {
+        s[i] = s[n - i - 1];
+        x++;
+    }
+    cout << x;
+    return 0;
+}
+\end{lstlisting}
+
+\label{q:hkoi:2022hs:q2}
+
+\answer{
+    \ref{q:hkoi:2022hs:q2} 3\\\\
+    It suffices to trace the program directly. The program counts the edit distance between the string and the string reversed, divided by 2.
+}
+
+\miquestion Which of the following Boolean expressions is not logically equivalent to other Boolean expressions? \footnotecite{hkoi:2022hs}
+\begin{multiplechoice}
+\item \code{A OR (NOT B OR NOT C)}
+\item \code{NOT (((NOT A) AND B) AND C)}
+\item \code{(A OR NOT B) OR NOT C}
+\item \code{((NOT A) AND B) OR NOT C}
+\end{multiplechoice}
+
+\label{q:hkoi:2022hs:q5}
+
+\answer{
+    \ref{q:hkoi:2022hs:q5} D\\\\
+    NOT (((NOT A) AND B) AND C)\\
+    $\equiv$ NOT((NOT A) AND B) OR NOT C (by De Morgan's Law)\\
+    $\equiv$ (A OR NOT B) OR NOT C (by De Morgan's Law)\\
+    $\equiv$ A OR (NOT B OR NOT C) (by commutative law)\\
+    When A $\equiv$ TRUE, B $\equiv$ TRUE, C $\equiv$ FALSE, option D gives FALSE but option A, B and C gives TRUE.
+}
+
+
+% TODO: HKOI 2022 SENIOR Q13
+
+% TODO: 2022 JUNIOR Q5, 10, 11, order of precedence
+\end{questions}

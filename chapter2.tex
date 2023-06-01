@@ -116,6 +116,7 @@ You are advised to only use \texttt{double} to store numbers with decimal points
 
 \section{Boolean operators}
 
+\label{sec:booleanop}
 A Boolean\index{Boolean} variable (\texttt{bool}) can be either \texttt{true} or \texttt{false}. There are three operations that we can perform on \texttt{bool}s. Including AND (\&\&), OR (\textbar\textbar), NOT (!).
 
 \begin{table}[h]
@@ -163,7 +164,7 @@ A Boolean\index{Boolean} variable (\texttt{bool}) can be either \texttt{true} or
 C/C++ recognizes 0 as false and other non-zero values as true. It is common to use 1 instead of true\footnote{a convention} and 0 instead of false.
 
 You could do \texttt{while(true) ...} for an infinite loop, but you might as well do \texttt{while(1) ...}
-\vspace{6mm}
+
 
 Order of precedence: ! $>$ \&\& $>$ \textbar\textbar
 
@@ -184,7 +185,7 @@ For example,
 \subsection{Bitwise operators}
 
 \textit{Difficult topic}
-\vspace{6mm}
+
 
 Don't have time to cover, there should be plenty of resources online on this topic. 
 
@@ -235,7 +236,7 @@ cout << x << endl; //40
 \section{Strings}
 
 \textit{Of less importance, except operation on string variables}
-\vspace{6mm}
+
 
 Strings are best understood as an array of characters, we would store them using a character array such as  \texttt{char s[10] = "Hello";} \footnote{We would avoid using the type \texttt{string} in C++, but use character arrays to store strings}, but there are a few nasty catches.
 
@@ -341,7 +342,7 @@ cout << s4 << endl; //Good morning
 \subsection{Strings VS string variables}
 
 The following two restrictions concern string variables but not strings. Now let's differentiate strings and string variables.
-\vspace{6mm}
+
 
 Strings are hard coded in the source code, only for one time use. Normal users (not you, you are the programmer) cannot change it.
 
@@ -433,7 +434,7 @@ You are advised to try out these operations yourself, I am sure you will find su
 \section{Conclusion and further resources}
 
 \href{https://www.youtube.com/watch?v=Zy2bNkSxv8M}{This video}\footnote{Link: \href{https://www.youtube.com/watch?v=Zy2bNkSxv8M}{https://www.youtube.com/watch?v=Zy2bNkSxv8M}} summarizes some more nasty things about strings. Bear in mind what you can and what you can't do with them.
-\vspace{6mm}
+
 
 \begin{center}
 \textit{The most comfortable type to deal with are integers.}

@@ -1,7 +1,7 @@
 \chapter{Recursion}
 
 \textit{Difficult topic}
-\vspace{6mm}
+
 
 Recursive functions are those which call themselves again inside their function body, for example, the \texttt{fact} function that I will introduce down the chapter.
 
@@ -126,13 +126,13 @@ The figure shows what happens when I call \texttt{fact(4)}.
 \includegraphics[width=15cm]{ch4-factorial.png}
 
 \texttt{fact(4)} is called, realizing it needs \texttt{fact(3)} to finish, the program pauses \texttt{fact(4)}, and puts it in the call stack, so that it remembers to resume it after getting the result of \texttt{fact(3)}. A similar process happened for \texttt{fact(3)}, \texttt{fact(2)} and \texttt{fact(1)}. Finally, when \texttt{fact(0)} is called, there is no need to rely on other function calls to obtain the return value 1. We call \texttt{fact(0)} the \textbf{base case}\index{base case}. With the result of \texttt{fact(0)}, \texttt{fact(1)} can be resumed, \texttt{fact(1)} is removed from the call stack and its result is computed. A similar process happened for \texttt{fact(2)}, \texttt{fact(3)} and \texttt{fact(4)}, giving the required result finally.
-\vspace{6mm}
+
 
 % TODO: WHY RECURSION: CITE FROM
 % https://pages.cs.wisc.edu/~vernon/cs367/notes/6.RECURSION.html#iter
 \section{Example: Weird function}
 
-We would use the call stack method to analyse the output of \texttt{f(0)}\footnote{Modified from \cite{hkoi:hs2022}} . You can see the equational method does not work\footnote{Out of scope: because it involves accessing (reading and writing) the array \texttt{a}, this counts as a side effect.}.
+We would use the call stack method to analyse the output of \texttt{f(0)}\footnote{Modified from \cite{hkoi:2022hs}} . You can see the equational method does not work\footnote{Out of scope: because it involves accessing (reading and writing) the array \texttt{a}, this counts as a side effect.}.
 
 \begin{lstlisting}
 int a[7] = {3, 6, 8, 2, 5, 1, 2};

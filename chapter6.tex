@@ -40,7 +40,7 @@ Stacks can be easily implemented by both arrays and linked lists. As demonstrate
 \includegraphics[width=15cm]{images/ch6-stacklinkedlist.png}
 
 Let's look at the array implementation in code. In the illustrations, we assumed that the array have an infinite size. In reality, array memory is limited, so we impose a MAX value and stop pushing elements when the stack is full.
-\vspace{6mm}
+
 
 C++: (\textit{Exercise: Try to re-implement yourself.})\footnote{The way to deal with the warnings when the stack is full/ empty depends on the use case. We will not cover it here.}
 \begin{lstlisting}
@@ -178,10 +178,10 @@ int main(){
 \subsection{Circular queues}
 
 \textit{Difficult topic}
-\vspace{6mm}
+
 
 You can quickly see that there is a problem, variables \texttt{i} and \texttt{j} keep increasing but never decrease, eventually the queue cannot be used after \texttt{MAX} amount of insertions. This is unsustainable and we realized we can work around it.
-\vspace{6mm}
+
 
 The solution is a \textbf{circular queue}\index{circular queue}. Value of variables \texttt{i} and \texttt{j} circle round and round, going back to 0 after reaching \texttt{MAX-1}.
 
@@ -225,7 +225,7 @@ int size(){ return _size;}
 
 bool isEmpty(){ return _size==0;}
 \end{lstlisting}
-\vspace{6mm}
+
 
 Finally, the outline of the linked list implementation is as follows. An additional tail pointer is used so that both enqueue and dequeue can be done in $O(1)$ time.
 

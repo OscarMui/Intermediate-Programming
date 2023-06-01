@@ -6,16 +6,16 @@ Here are some basic programming knowledge. I hope you have seen some of the conc
 
 % Translated to Java end 
 
-\section*{Further resources (Ch 1-2)}
+\subsection*{Further resources (Ch 1-2)}
 \addcontentsline{toc}{section}{Further resources (Ch 1-2)}
-\href{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{Bucky's C++ Programming Tutorial}\footnote{Link: \url{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}} (a YouTube playlist) covers most things that you need to know about C++, and also most of the things in this chapter. You only need to watch the first 20-30 videos, as it goes too deep in the later episodes.
+\link{https://www.youtube.com/watch?v=tvC1WCdV1XU&list=PLAE85DE8440AA6B83}{Bucky's C++ Programming Tutorial} (a YouTube playlist) covers most things that you need to know about C++, and also most of the things in this chapter. You only need to watch the first 20-30 videos, as it goes too deep in the later episodes.
 
-\section*{Practicing at home}
+\subsection*{Practicing at home}
 Practicing is very important. For example, one of the things I would do back then is to remove the one or two lines that I didn't understand in the materials, and see how they affected the program by printing out the values of the variables at different times. 
 
 Refer to \cref{sec:settingup} on how to run C++ code on your own device.
 
-\section{Structure of a C++ program}
+\subsection*{Structure of a C++ program}
 \begin{lstlisting}
 //First include the libraries that you are going to use
 #include <iostream> 
@@ -35,18 +35,18 @@ You need to add a semicolon at the end of every statement or else the compiler w
 
 Comments are denoted as \texttt{//}.
 
-\section{Variables}
+\subsection*{Variables}
 
-\textit{A variable is just like an empty box. You can store stuff in it. Technically, it is nothing but a name given to a computer memory. That's it, now go spend rest of your life deciding the perfect variable name.}\footnote{Cited from \cite{variableig}}
+\textit{A variable is just like an empty box. You can store stuff in it. Technically, it is nothing but a name given to a computer memory. That's it, now go spend rest of your life deciding the perfect variable name.} \footnotecite{variableig}
 
-It is important to distinguish between initialision of the variable and reassignment of the variable.
+It is important to distinguish between initialisation of the variable and reassignment of the variable.
 
 \begin{lstlisting}
 int score = 70; //initialisation
 score = 80; //reassignment
 \end{lstlisting}
 
-You have to specify the type of variables when initialising them in C++. Each variable can only be used to store data of a single type. You can see a list of datatypes that C++ offers in \cref{sec:primarydtypes} and we will dedicate our full attention to them in \cref{sec:dtypes}.
+You have to specify the type of variables when initialising them in C++. Each variable can only be used to store data of a single type. Common types include \code{int} for integers, \code{double} for numbers with decimal places i.e. \textbf{floating point numbers}, \code{char} for one character, and \code{bool} for \code{true} or \code{false} i.e. \textbf{Booleans}. 
 
 It is not compulsory to give an initial value to a variable. If you do not do so, it will be a random number until you reassigns it.
 
@@ -57,7 +57,18 @@ score = 80; //reassignment
 cout << score << endl; //80
 \end{lstlisting}
 
-\section{Console I/O}
+You can see a list of datatypes that C++ offers in \cref{sec:primarydtypes} and we will dedicate our full attention to datatypes and Boolean operators in \cref{sec:dtypes}.
+
+\subsection*{Operators}
+We can perform arithmetic operations like \code{+ - * /} on numbers, \code{/} will only return a floating point number when at least one of its arguments are floating points. Otherwise, it will \textbf{truncate} the number to an integer. % not round down due to negative arguments
+
+We can also calculate the remainder of a division using the \code{\%} operator. \code{a\%b} computes the remainder of \code{a} when divided by \code{b}. We assume \code{a} is a non-negative integer and \code{b} is a positive integer. It will give an error when supplied with floating point arguments. Its behaviour for integers outside its range is not well-defined.
+
+There are also some operators that works on Booleans including \code{!} for NOT, \code{\textbar\textbar} for OR and \code{\&\&} for AND. We will look into them in detail in \cref{sec:booleanop}.
+
+\subsection*{Console I/O}
+
+It is important to be able to visualise the result of our program and to interact with our program.
 
 \texttt{cout} stands for Console OUTput. You put the things (variable or strings - sequence of characters) that you want to print after the \texttt{cout} keyword, separated by \texttt{<<}. The \texttt{endl} keyword inserts a newline character. Remember to use double quotes for strings.
 
@@ -73,7 +84,12 @@ cout << "Your scored " << score << " in this paper." << endl;
 \end{lstlisting}
 
 \section{Conditionals}
+
+More complicated code do not just go like a straight line, the programming constructs below allow the code to do different things based on the current state of the machine or based on different user input.
+
 \subsection{\texttt{if} statements}
+
+The simplest form of conditionals.
 
 \begin{lstlisting}
 int score;
@@ -87,7 +103,9 @@ if(score >= 70){
 }
 \end{lstlisting}
 
-\subsection{\texttt{switch case}}
+\subsection{\texttt{switch case}} 
+
+{\footnotesize (Of less importance)}
 
 Just looks neater when you are testing on the same variable multiple times. You can of course use if else if else if... 
 
@@ -147,7 +165,6 @@ cout << x[8] << endl; //unexpected value (Why?)
 We call the things stored in the array \textbf{elements}. We distinguish different elements using \textbf{index}. The index \textbf{starts from 0}, and ends at $n-1$, where $n$ is the length of the array. The \textbf{length} of the array refers to the maximum number of elements that the array can store, based on the memory allocated when it is \textbf{initialised}. We cannot change the length of the array normally.
 
 \includegraphics[width=12cm]{images/ch2-arrayindex.png}
-\vspace{6mm}
 
 There are two ways of initialising arrays. The first way is to hard-code the elements in the array. The length of the array is inferred by the number of elements given, and it cannot be extended afterwards.
 
@@ -173,10 +190,15 @@ int x[8];
 \end{lstlisting}
 \fi
 
+Arrays turn out to be a very important programming construct, and we would dedicate our whole attention to it in \cref{sec:arraychap}.
 % Translated to Java end
 
 \section{Loops}
+
+More complicated programs often require the same bit of code executing multiple times, the use of loops allows us to write shorter code. (Of course there are many other uses of it but it is best understood by looking at examples and practice)
+
 \subsection{\texttt{for} loops}
+\label{sec:forloops}
 Runs the body a specified number of times.
 
 \begin{lstlisting}
@@ -214,12 +236,14 @@ cout << sum << endl; //31
 int x[8] = {3,1,4,1,5,9,2,6};
 int sum = 0;
 int i = 0;
-while(i<8&&sum<10) { 
+while(i<8&&x[i]%2==1) { 
     sum += x[i];
     i++;
 }
-cout << sum << endl; //14
+cout << sum << endl;
 \end{lstlisting}
+
+%4
 
 \subsection{\texttt{do while} loops}
 Runs the body until the test is false. The body will run at least once.
@@ -262,10 +286,9 @@ while(emergency){
 }
 destroy_world(); //will not be run
 \end{lstlisting}
-\vspace{6mm}
 
 \subsection{\texttt{break}}
-
+\label{sec:loopbreak}
 \texttt{break} allows you to terminate the loop early.
 
 \begin{lstlisting}
@@ -277,11 +300,13 @@ while(i<8) {
     i++;
     if(sum >= 10) break;
 }
-cout << sum << endl; //14
+cout << sum << endl;
 \end{lstlisting}
 
-\subsection{\texttt{continue}}
+% 14
 
+\subsection{\texttt{continue}}
+\label{sec:loopcontinue}
 \texttt{continue} allows you to jump to the next iteration, skipping the rest of the current iteration early.
 
 \begin{lstlisting}
@@ -293,10 +318,14 @@ while(i>0) {
     if(x[i] >= 5) continue;
     sum += x[i];
 }
-cout << sum << endl; //11
+cout << sum << endl; 
 \end{lstlisting}
 
-\subsection{Necessity of \texttt{break} and \texttt{continue}}
+%11 
+
+Note that the use of \texttt{break} and \texttt{continue} can always be avoided, we will explore how to do them in the exercises. In fact, plenty of other programming languages do not have \texttt{break} and \texttt{continue}. 
+
+% \subsection{Necessity of \texttt{break} and \texttt{continue}}
 
 % Note that all for loops and do while loops can be written as a while loop.
 
@@ -309,13 +338,11 @@ cout << sum << endl; //11
 % do <body> while(<test>); === <body> while(<test>) <body>
 % \end{lstlisting}
 
-Note that the use of \texttt{break} and \texttt{continue} can be avoided by modifying the loop condition and using if statements respectively. 
 
-In fact, plenty of other programming languages do not have \texttt{break} and \texttt{continue}. 
 
-\section{2D arrays}
+\section{2 dimensional arrays}
 
-Don't have time to cover, there should be plenty of resources online on this topic.
+2 dimensional (2D) arrays are arrays where each individual element is another array. It is indexed by a pair of integers. 
 
 \begin{lstlisting}
 int x[3][] = {{1,4,7},{2,5,8},{3,6,9}};
@@ -323,6 +350,8 @@ cout << x[2][1] << endl; //6
 \end{lstlisting}
 
 \subsection{Nested loops}
+
+We usually use multiple layers of loops to manipulate such arrays. 
 
 \begin{lstlisting}
 int x[3][] = {{1,4,7},{2,5,8},{3,6,9}};
@@ -333,11 +362,13 @@ for(int i=0;i<3;i++)
 cout << sum << endl; //45
 \end{lstlisting}
 
+There are not much difference to normal loops and normal arrays in concept. But it requires more hard work and more practice to trace them and to write them on your own. There will be some exercises on this below, and even more in later chapters.
+
 % Translated to Java 
 \section{\if\proglang1 Methods \else ~Functions \fi}
 \label{sec:functions}
 
-\if\proglang1 Methods \else Functions \fi let you organize code better and reduce the amount of repeated code. You can define them by:
+Use of \textbf{functions} (also called \textbf{methods} and \textbf{procedures}) reduces the amount of repeated code and increases code readability. You can define them by:
 
 \if\proglang1
 \begin{lstlisting}[language=,basicstyle=\rmfamily]
@@ -386,7 +417,7 @@ You could call it by just supplying the argument.
 \end{lstlisting}
 \else
 \begin{lstlisting}
-    cout << fact(6) << endl; //720
+    cout << fact(6) << endl; //720r
 \end{lstlisting}
 \fi
 
@@ -442,10 +473,11 @@ int main(){
 \fi
 
 The main\if\proglang1 method \else ~function \fi is just a\if\proglang1 method \else ~function \fi with no arguments and an integer as a return value. The main\if\proglang1 method \else ~function \fi (specially recognized by the compiler) is the point of entry of the program, the program terminates when the main program returns, returning 0 indicates that there is no error, and returning other integers indicate otherwise.
-\vspace{6mm}
 
 Note that the giveComment\if\proglang1 method \else ~function \fi must be placed in front of the main\if\proglang1 method \else ~function \fi, or else the main\if\proglang1 method \else ~function \fi could not call the giveComment\if\proglang1 method \else ~function \fi as the\if\proglang1 method \else ~function \fi has not been defined by the time the compiler reads till the main\if\proglang1 method \else ~function \fi. 
 
+% Translated to Java end
+
+
 
 % TODO: https://users.cs.utah.edu/~zachary/computing/lessons/uces-10/uces-10/node11.html
-% Translated to Java end

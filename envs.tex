@@ -1,0 +1,46 @@
+\newenvironment{questions}
+    {
+        \begin{enumerate}[label=\textbf{\thechapter.\arabic*}]
+    }
+    { 
+        \end{enumerate}
+    }
+
+\newenvironment{parts}
+    {
+        \begin{enumerate}[label=(\alph*)]
+        \let\part\mipart
+    }
+    { 
+        \end{enumerate}
+    }
+
+\newenvironment{multiplechoice}
+    {   
+        \begin{samepage}
+        \nopagebreak % no breaking between choices
+        \begin{enumerate}[label=\Alph*.]
+    }
+    {
+        \end{enumerate}
+        \end{samepage}
+    }
+
+% revised question command that tries to encourage page breaks
+% to lie between questions rather than within questions
+% Copied from oxford problem sheet template
+% \newcommand{\miquestion}[1][]{\filbreak
+%   \ifthenelse{\equal{#1}{}}{\item}{\item[#1]}
+% }
+
+\newcommand{\miquestion}{\item}
+
+\newcommand{\mipart}{\item}
+
+\newcommand{\link}[2]{\href{#1}{#2}\footnote{Link: \url{#1}}}
+
+\newcommand{\footnotecite}[1]{{\footnotesize \cite{#1}}}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\newcommand{\answer}[1]{\endnotetext{#1}}
